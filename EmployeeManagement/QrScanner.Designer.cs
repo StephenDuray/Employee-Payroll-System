@@ -30,6 +30,7 @@
         {
             this.qrCodePictureBox = new System.Windows.Forms.PictureBox();
             this.generateButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.qrCodePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -47,7 +48,7 @@
             this.generateButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.generateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.generateButton.Image = global::EmployeeManagement.Properties.Resources.addAttendance;
-            this.generateButton.Location = new System.Drawing.Point(489, 207);
+            this.generateButton.Location = new System.Drawing.Point(481, 378);
             this.generateButton.Name = "generateButton";
             this.generateButton.Size = new System.Drawing.Size(238, 60);
             this.generateButton.TabIndex = 17;
@@ -56,17 +57,28 @@
             this.generateButton.UseVisualStyleBackColor = true;
             this.generateButton.Click += new System.EventHandler(this.generateButton_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(539, 113);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(44, 16);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "label1";
+            // 
             // QrScanner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.generateButton);
             this.Controls.Add(this.qrCodePictureBox);
             this.Name = "QrScanner";
             this.Text = "QrScanner";
             ((System.ComponentModel.ISupportInitialize)(this.qrCodePictureBox)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -74,5 +86,6 @@
 
         private System.Windows.Forms.PictureBox qrCodePictureBox;
         private System.Windows.Forms.Button generateButton;
+        private System.Windows.Forms.Label label1;
     }
 }

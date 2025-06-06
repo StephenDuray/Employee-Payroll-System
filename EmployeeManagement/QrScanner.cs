@@ -43,7 +43,7 @@ namespace EmployeeManagement
                     }
                     else
                     {
-                        MessageBox.Show("No QR code detected.", "Scan Result", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        label1.Text = "No QR code detected.";
                     }
                 }
             }
@@ -53,7 +53,7 @@ namespace EmployeeManagement
         {
             if (!int.TryParse(qrContent.Trim(), out int employeeId))
             {
-                MessageBox.Show("Invalid QR Code content.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                label1.Text = "Invalid QR Code content.";
                 return;
             }
 
@@ -61,7 +61,7 @@ namespace EmployeeManagement
 
             if (!dbConn.HasShiftOnDate(employeeId, currentDate))
             {
-                MessageBox.Show("No shift assigned for today.", "Shift Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                label1.Text = "No shift assigned for today.";
                 return;
             }
 
@@ -75,21 +75,22 @@ namespace EmployeeManagement
                 // No record exists, so this is a time in
                 TimeSpan newTimeIn = DateTime.Now.TimeOfDay;
                 dbConn.AddAttendanceWithTimeIn(employeeId, currentDate, newTimeIn);
-                MessageBox.Show($"{employeeName} has timed in at {newTimeIn}.", "Attendance", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                label1.Text = $"{employeeName} has timed in at {newTimeIn}.";
             }
             else if (timeOut == null)
             {
                 // Record exists but no time out, so this is a time out
                 TimeSpan newTimeOut = DateTime.Now.TimeOfDay;
                 dbConn.UpdateAttendanceWithTimeOut(employeeId, currentDate, newTimeOut);
-                MessageBox.Show($"{employeeName} has timed out at {newTimeOut}.", "Attendance", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                label1.Text = $"{employeeName} has timed out at {newTimeOut}.";
             }
             else
             {
                 // Both time in and time out are already recorded
-                MessageBox.Show("Attendance for today is already complete.", "Attendance", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                label1.Text = "Attendance for today is already complete.";
             }
         }
+
         private string ScanQRCode(Bitmap bitmap)
         {
             BarcodeReader reader = new BarcodeReader();

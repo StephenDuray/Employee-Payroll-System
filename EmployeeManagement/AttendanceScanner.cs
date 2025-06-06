@@ -102,9 +102,10 @@ namespace EmployeeManagement
         }
         private void ProcessQRCode(string qrContent)
         {
+            // Update the label instead of showing a message box
             if (!int.TryParse(qrContent.Trim(), out int employeeId))
             {
-                MessageBox.Show("Invalid QR Code content.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                label1.Text = "Invalid QR Code content.";
                 return;
             }
 
@@ -112,54 +113,33 @@ namespace EmployeeManagement
 
             if (!dbConn.HasShiftOnDate(employeeId, currentDate))
             {
-                MessageBox.Show("No shift assigned for today.", "Shift Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                label1.Text = "No shift assigned for today.";
                 return;
             }
 
             // Check if there's an existing attendance record for today
             var (timeIn, timeOut) = dbConn.GetAttendanceRecord(employeeId, currentDate);
 
+            string employeeName = dbConn.GetEmployeeNameByID(employeeId);
+
             if (timeIn == null)
             {
                 // No record exists, so this is a time in
                 TimeSpan newTimeIn = DateTime.Now.TimeOfDay;
                 dbConn.AddAttendanceWithTimeIn(employeeId, currentDate, newTimeIn);
-                MessageBox.Show("Time In recorded successfully.", "Attendance", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                label1.Text = $"{employeeName} has timed in at {newTimeIn}.";
             }
             else if (timeOut == null)
             {
                 // Record exists but no time out, so this is a time out
                 TimeSpan newTimeOut = DateTime.Now.TimeOfDay;
                 dbConn.UpdateAttendanceWithTimeOut(employeeId, currentDate, newTimeOut);
-                MessageBox.Show("Time Out recorded successfully.", "Attendance", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // Calculate and save attendance metrics
-                var (shiftStart, shiftEnd) = dbConn.GetShiftTimings(employeeId, currentDate);
-
-                if (shiftStart != null && shiftEnd != null)
-                {
-                    // Calculate late minutes
-                    int lateMinutes = Math.Max(0, (int)(timeIn.Value - shiftStart.Value).TotalMinutes);
-
-                    // Calculate undertime minutes
-                    int undertimeMinutes = Math.Max(0, (int)(shiftEnd.Value - newTimeOut).TotalMinutes);
-
-                    // Calculate hours worked
-                    TimeSpan workedDuration = newTimeOut - timeIn.Value;
-                    TimeSpan lunchBreak = TimeSpan.FromHours(1); // Assuming a 1-hour lunch break
-                    TimeSpan effectiveWorkedDuration = workedDuration - lunchBreak;
-                    if (effectiveWorkedDuration.TotalMinutes < 0) effectiveWorkedDuration = TimeSpan.Zero;
-
-                    string hoursWorked = $"{(int)effectiveWorkedDuration.TotalHours}h {effectiveWorkedDuration.Minutes}m";
-
-                    // Save the calculated metrics to the database
-                    dbConn.UpdateAttendanceMetrics(employeeId, currentDate, lateMinutes, undertimeMinutes, hoursWorked);
-                }
+                label1.Text = $"{employeeName} has timed out at {newTimeOut}.";
             }
             else
             {
                 // Both time in and time out are already recorded
-                MessageBox.Show("Attendance for today is already complete.", "Attendance", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                label1.Text = "Attendance for today is already complete.";
             }
         }
     }
