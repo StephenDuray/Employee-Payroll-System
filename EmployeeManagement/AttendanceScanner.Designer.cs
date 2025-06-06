@@ -50,7 +50,7 @@
             this.ExitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ExitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ExitButton.Image = global::EmployeeManagement.Properties.Resources.exitButton1;
-            this.ExitButton.Location = new System.Drawing.Point(705, 0);
+            this.ExitButton.Location = new System.Drawing.Point(816, -1);
             this.ExitButton.Name = "ExitButton";
             this.ExitButton.Size = new System.Drawing.Size(96, 52);
             this.ExitButton.TabIndex = 65;
@@ -64,7 +64,7 @@
             this.stopButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.stopButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.stopButton.Image = global::EmployeeManagement.Properties.Resources.scan;
-            this.stopButton.Location = new System.Drawing.Point(520, 363);
+            this.stopButton.Location = new System.Drawing.Point(582, 355);
             this.stopButton.Name = "stopButton";
             this.stopButton.Size = new System.Drawing.Size(222, 60);
             this.stopButton.TabIndex = 63;
@@ -86,7 +86,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(911, 450);
             this.Controls.Add(this.ExitButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.stopButton);
