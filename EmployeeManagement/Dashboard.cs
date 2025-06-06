@@ -101,7 +101,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
                 TimeeLabel.Visible = true;
                 mainPanel.Visible = true;
 
-            Controls.SetChildIndex(button1, 1); // Assuming the panel is at index 0
+            Controls.SetChildIndex(button1, 1);
             Controls.SetChildIndex(mainPanel, 0);
 
             UpdateDashboardCounts();
@@ -136,7 +136,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
                 updateEmployee.Show();
                 
             }
-            private void searchBox_TextChanged(object sender, EventArgs e) // For showing employee names in the textbox
+            private void searchBox_TextChanged(object sender, EventArgs e)
             {
                 string searchText = searchBox.Text.Trim();
                 label1.Visible = true;
@@ -147,7 +147,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
                     dataGridView1.AutoGenerateColumns = true;
                     dataGridView1.DataSource = allEmployees;
 
-                    // Clear the label if all employees are shown
+                    
                     label1.Text = string.Empty;
                 }
                 else
@@ -160,14 +160,14 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
                     dataGridView1.AutoGenerateColumns = true;
                     dataGridView1.DataSource = filteredEmployees;
 
-                    // Check if the filtered DataTable is empty
+                    
                     if (filteredEmployees.Rows.Count == 0)
                     {
-                        label1.Text = "Employee not found"; // Show message if no employees found
+                        label1.Text = "Employee not found";
                     }
                     else
                     {
-                        label1.Text = string.Empty; // Clear the label if employees are found
+                        label1.Text = string.Empty; 
                     }
                 }
             }
@@ -206,8 +206,10 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
                 datelabel.Visible = false;
                 timelabel.Visible = false;
                 mainPanel.Visible = false; 
+                datelabel.Visible = false;
+                timelabel.Visible = false;
 
-                attendanceSearchLabel.Visible = true;
+            attendanceSearchLabel.Visible = true;
                 addAttendanceButton.Visible = true;
                 comboBox1.Visible = true;
                 attendancestartDTP.Visible = true;
@@ -262,9 +264,9 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
             private void addAttendanceButton_Click(object sender, EventArgs e)
             {
-                // Pass the current instance of Dashboard to AddAttendance
-                    AddAttendance addAttendance = new AddAttendance(this);  // 'this' refers to the current instance of Dashboard
-                    addAttendance.Show();  // Show the AddAttendance form as a dialog
+               
+                    AddAttendance addAttendance = new AddAttendance(this); 
+                    addAttendance.Show();
                 
 
                 DateeLabel.Visible = false;
@@ -298,7 +300,6 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
         private void LoadFilteredAttendanceByDateRange(DateTime startDate, DateTime endDate)
         {
-            // Check if the start date is after the end date
             if (startDate > endDate)
             {
                 MessageBox.Show("Start date must be before or equal to end date.", "Invalid Range", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -370,7 +371,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
                     adapter.Fill(dt);
                 }
 
-                // Add placeholder row
+                
                 DataRow newRow = dt.NewRow();
                 newRow["employeeID"] = DBNull.Value;
                 newRow["Name"] = "Select Employee";
@@ -381,7 +382,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
                 comboBox1.ValueMember = "employeeID";
                 comboBox1.SelectedIndex = 0;
 
-                // Event handler to load attendance when selection changes
+               
                 comboBox1.SelectedIndexChanged += (s, e) =>
                 {
                     if (comboBox1.SelectedIndex <= 0 || comboBox1.SelectedValue == null || comboBox1.SelectedValue == DBNull.Value)
@@ -389,7 +390,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
                     int employeeID = Convert.ToInt32(comboBox1.SelectedValue);
 
-                    // Modified query to include status
+                    
                     string attendanceQuery = @"
                         SELECT 
                             e.employeeID,
@@ -458,8 +459,8 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
         private void payrollButton_Click(object sender, EventArgs e)
         {
             Payroll payroll = new Payroll();
-            payroll.ShowDialog(); // Show the Payroll form as a dialog
-            this.Close(); // Close the current Dashboard form
+            payroll.ShowDialog(); 
+            this.Close();
         }
 
         public void deductoinButton_Click(object sender, EventArgs e)

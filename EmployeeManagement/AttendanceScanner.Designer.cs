@@ -28,11 +28,50 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.stopButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.ExitButton = new System.Windows.Forms.Button();
+            this.stopButton = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(475, 98);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(0, 25);
+            this.label1.TabIndex = 64;
+            // 
+            // ExitButton
+            // 
+            this.ExitButton.BackColor = System.Drawing.Color.White;
+            this.ExitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ExitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ExitButton.Image = global::EmployeeManagement.Properties.Resources.exitButton1;
+            this.ExitButton.Location = new System.Drawing.Point(705, 0);
+            this.ExitButton.Name = "ExitButton";
+            this.ExitButton.Size = new System.Drawing.Size(96, 52);
+            this.ExitButton.TabIndex = 65;
+            this.ExitButton.Text = " Exit";
+            this.ExitButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.ExitButton.UseVisualStyleBackColor = false;
+            this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
+            // 
+            // stopButton
+            // 
+            this.stopButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.stopButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.stopButton.Image = global::EmployeeManagement.Properties.Resources.scan;
+            this.stopButton.Location = new System.Drawing.Point(520, 363);
+            this.stopButton.Name = "stopButton";
+            this.stopButton.Size = new System.Drawing.Size(222, 60);
+            this.stopButton.TabIndex = 63;
+            this.stopButton.Text = "Stop Scan";
+            this.stopButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.stopButton.UseVisualStyleBackColor = true;
+            this.stopButton.Click += new System.EventHandler(this.stopButton_Click_1);
             // 
             // pictureBox1
             // 
@@ -43,38 +82,18 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // stopButton
-            // 
-            this.stopButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.stopButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.stopButton.Image = global::EmployeeManagement.Properties.Resources.addAttendance;
-            this.stopButton.Location = new System.Drawing.Point(527, 359);
-            this.stopButton.Name = "stopButton";
-            this.stopButton.Size = new System.Drawing.Size(222, 60);
-            this.stopButton.TabIndex = 63;
-            this.stopButton.Text = "stopButton";
-            this.stopButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.stopButton.UseVisualStyleBackColor = true;
-            this.stopButton.Click += new System.EventHandler(this.stopButton_Click_1);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(475, 91);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 16);
-            this.label1.TabIndex = 64;
-            this.label1.Text = "label1";
-            // 
             // AttendanceScanner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.ExitButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.stopButton);
             this.Controls.Add(this.pictureBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AttendanceScanner";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AttendanceScanner";
             this.Load += new System.EventHandler(this.AttendanceScanner_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -88,5 +107,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button stopButton;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button ExitButton;
     }
 }

@@ -20,7 +20,7 @@
             {
                 InitializeComponent();
                 printDocument1.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
-                LoadNames(); // Load employee names into the combo box
+                LoadNames();
                 LoadPayrollPeriods();
 
 
@@ -67,12 +67,12 @@
 
             private void deductionButton_Click(object sender, EventArgs e)
             {
-                // Open the form modally
+                
                 using (addpayrollPeriod addPeriodForm = new addpayrollPeriod(this))
                 {
                     if (addPeriodForm.ShowDialog() == DialogResult.OK)
                     {
-                        // Refresh the payroll periods combo box after the dialog closes
+                       
                         LoadPayrollPeriods();
                     }
                 }
@@ -124,16 +124,19 @@
                 LoadPayrollSummary();
 
 
-            }
+                }
+            private string deductionTypes;
+            private string bonusTypes;
+
         private void LoadPayrollSummary()
         {
             if (comboBox1.SelectedValue != null && int.TryParse(comboBox1.SelectedValue.ToString(), out int selectedId))
             {
-                // Get the selected payroll period's start and end dates
+                
                 DataRowView selectedPeriod = comboBox2.SelectedItem as DataRowView;
                 if (selectedPeriod == null || selectedPeriod["periodStart"] == DBNull.Value || selectedPeriod["periodEnd"] == DBNull.Value)
                 {
-                    // No valid period selected
+                    
                     ClearTextBoxes();
                     return;
                 }
@@ -142,30 +145,38 @@
                 DateTime periodEnd = Convert.ToDateTime(selectedPeriod["periodEnd"]);
 
                 string query = @"
-            SELECT 
-                e.employeeID AS employeeID,
-                e.hourlyRate,
-                (SUM(TIMESTAMPDIFF(MINUTE, a.timeIn, a.timeOut)) - (COUNT(*) * 60)) / 60 AS total_hours_worked,
-                SUM(GREATEST(TIMESTAMPDIFF(MINUTE, s.timeIn, a.timeIn), 0)) AS total_late_minutes,
-                SUM(GREATEST(TIMESTAMPDIFF(MINUTE, a.timeOut, s.timeOut), 0)) AS total_undertime_minutes,
-                IFNULL((SELECT SUM(amount) FROM deductions WHERE employeeID = e.employeeID), 0) AS total_deductions,
-                IFNULL(
-                    (SELECT SUM(amount) FROM bunos 
-                     WHERE employeeID = e.employeeID 
-                       AND bonusDate BETWEEN @period_start AND @period_end
-                    ), 0
-                ) AS bonus
-            FROM attendance a
-            JOIN employee e ON e.employeeID = a.employeeID
-            JOIN shiftemployee se ON se.employeeID = a.employeeID
-                AND a.date BETWEEN se.startDate AND se.endDate
-            JOIN shift s ON s.shiftID = se.shiftID
-            WHERE a.employeeID = @employee_id
-              AND a.status != 'Absent'
-              AND a.date BETWEEN @period_start AND @period_end
-            GROUP BY e.employeeID;
-        ";
-
+                    SELECT 
+                        e.employeeID AS employeeID,
+                        e.hourlyRate,
+                        (SUM(TIMESTAMPDIFF(MINUTE, a.timeIn, a.timeOut)) - (COUNT(*) * 60)) / 60 AS total_hours_worked,
+                        SUM(GREATEST(TIMESTAMPDIFF(MINUTE, s.timeIn, a.timeIn), 0)) AS total_late_minutes,
+                        SUM(GREATEST(TIMESTAMPDIFF(MINUTE, a.timeOut, s.timeOut), 0)) AS total_undertime_minutes,
+                        IFNULL((SELECT GROUP_CONCAT(CONCAT(dc.deductionName, ': ₱', d.amount) SEPARATOR '\n') 
+                                FROM deductions d
+                                JOIN deductionCategory dc ON d.deductionCatID = dc.deductionCatID
+                                WHERE d.employeeID = e.employeeID), 'None') AS detailed_deductions,
+                        IFNULL((SELECT GROUP_CONCAT(CONCAT(bc.bunosName, ': ₱', b.amount) SEPARATOR '\n') 
+                                FROM bunos b
+                                JOIN bunosCategory bc ON b.bunosCatID = bc.bunosCatID
+                                WHERE b.employeeID = e.employeeID 
+                                  AND b.bonusDate BETWEEN @period_start AND @period_end), 'None') AS detailed_bonuses,
+                        IFNULL((SELECT SUM(amount) FROM deductions WHERE employeeID = e.employeeID), 0) AS total_deductions,
+                        IFNULL(
+                            (SELECT SUM(amount) FROM bunos 
+                             WHERE employeeID = e.employeeID 
+                               AND bonusDate BETWEEN @period_start AND @period_end
+                            ), 0
+                        ) AS bonus
+                    FROM attendance a
+                    JOIN employee e ON e.employeeID = a.employeeID
+                    JOIN shiftemployee se ON se.employeeID = a.employeeID
+                        AND a.date BETWEEN se.startDate AND se.endDate
+                    JOIN shift s ON s.shiftID = se.shiftID
+                    WHERE a.employeeID = @employee_id
+                      AND a.status != 'Absent'
+                      AND a.date BETWEEN @period_start AND @period_end
+                    GROUP BY e.employeeID;
+                ";
                 var conn = dbConn.Instance.Connection;
                 if (conn.State != ConnectionState.Open)
                     conn.Open();
@@ -187,13 +198,17 @@
                             decimal totalDeductions = Convert.ToDecimal(reader["total_deductions"]);
                             decimal totalBonuses = Convert.ToDecimal(reader["bonus"]);
 
-                            // Calculate gross pay based on actual hours worked
+                            
+                            deductionTypes = reader["detailed_deductions"].ToString();
+                            bonusTypes = reader["detailed_bonuses"].ToString();
+
+                           
                             decimal grossPay = Math.Max(hoursWorked * hourlyRate, 0);
 
-                            // Calculate total penalty
+                            
                             decimal totalPenalty = ((totalLates + totalUndertime) / 60) * hourlyRate;
 
-                            // Calculate net pay ensuring it is not negative
+                            
                             decimal netPay = Math.Max(grossPay - totalPenalty - totalDeductions + totalBonuses, 0);
 
                             textBox1.Text = totalLates.ToString("F0");
@@ -204,7 +219,7 @@
                             textBox6.Text = totalBonuses.ToString("F2");
                             textBox7.Text = netPay.ToString("F2");
 
-                            // Hide button1 if netPay is zero
+                          
                             button1.Visible = netPay > 0;
                         }
                         else
@@ -227,49 +242,75 @@
             button1.Visible = false;
         }
         private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            Font titleFont = new Font("Arial", 20, FontStyle.Bold);
+            Font headerFont = new Font("Arial", 14, FontStyle.Bold);
+            Font bodyFont = new Font("Arial", 12);
+            Font totalFont = new Font("Arial", 12, FontStyle.Bold);
+            Brush brush = Brushes.Black;
+            int startX = 50;
+            int startY = 50;
+            int lineHeight = 30;
+
+            e.Graphics.DrawString("Payroll Summary", titleFont, brush, startX + 175, startY);
+            startY += lineHeight * 2;
+
+
+            e.Graphics.DrawString("Employee Name: " + comboBox1.Text, bodyFont, brush, startX, startY);
+            startY += lineHeight;
+
+            
+            
+            e.Graphics.DrawLine(Pens.Black, startX, startY, startX + 500, startY);
+            startY += lineHeight;
+
+            if (decimal.TryParse(textBox1.Text, out decimal totalLates) && totalLates > 0)
             {
-                Font titleFont = new Font("Arial", 20, FontStyle.Bold);
-                Font bodyFont = new Font("Arial", 12);
-                Brush brush = Brushes.Black;
-                int startX = 50;
-                int startY = 50;
-                int lineHeight = 30;
-
-                e.Graphics.DrawString("------Payroll Summary------", titleFont, brush, startX, startY);
-
-                startY += lineHeight * 2;
-
-                e.Graphics.DrawString("Employee Name: " + comboBox1.Text, bodyFont, brush, startX, startY);
+                e.Graphics.DrawString("Late (minutes)", bodyFont, brush, startX, startY);
+                e.Graphics.DrawString(textBox1.Text, bodyFont, brush, startX + 300, startY);
                 startY += lineHeight;
-
-                e.Graphics.DrawString("Late (minutes): " + textBox1.Text, bodyFont, brush, startX, startY);
-                startY += lineHeight;
-
-                e.Graphics.DrawString("Undertime (minutes): " + textBox2.Text, bodyFont, brush, startX, startY);
-                startY += lineHeight;
-
-                e.Graphics.DrawString("Gross Pay: ₱" + textBox3.Text, bodyFont, brush, startX, startY);
-                startY += lineHeight;
-
-                e.Graphics.DrawString("Penalty: ₱" + textBox4.Text, bodyFont, brush, startX, startY);
-                startY += lineHeight;
-
-                e.Graphics.DrawString("Deductions: ₱" + textBox5.Text, bodyFont, brush, startX, startY);
-                startY += lineHeight;
-
-                e.Graphics.DrawString("Bonus: ₱" + textBox6.Text, bodyFont, brush, startX, startY);
-                startY += lineHeight;
-
-                e.Graphics.DrawString("Net Pay: ₱" + textBox7.Text, bodyFont, brush, startX, startY);
-                startY += lineHeight;
-
-                e.Graphics.DrawString("Date Printed: " + DateTime.Now.ToString("MMMM dd, yyyy HH:mm tt"),bodyFont , brush,startX,startY);
-                startY += lineHeight * 3;
             }
 
 
-        
-            private void button1_Click_2(object sender, EventArgs e)
+            if (decimal.TryParse(textBox2.Text, out decimal totalUndertime) && totalUndertime > 0)
+            {
+                e.Graphics.DrawString("Undertime (minutes)", bodyFont, brush, startX, startY);
+                e.Graphics.DrawString(textBox2.Text, bodyFont, brush, startX + 300, startY);
+                startY += lineHeight;
+            }
+
+            e.Graphics.DrawString("Gross Pay", bodyFont, brush, startX, startY);
+            e.Graphics.DrawString("₱" + textBox3.Text, bodyFont, brush, startX + 300, startY);
+            startY += lineHeight;
+
+            e.Graphics.DrawString("Penalty", bodyFont, brush, startX, startY);
+            e.Graphics.DrawString("₱" + textBox4.Text, bodyFont, brush, startX + 300, startY);
+            startY += lineHeight;
+
+            if (decimal.TryParse(textBox5.Text, out decimal totalDeductions) && totalDeductions > 0)
+            {
+                e.Graphics.DrawString("Deductions", bodyFont, brush, startX, startY);
+                e.Graphics.DrawString("₱" + textBox5.Text, bodyFont, brush, startX + 300, startY);
+                startY += lineHeight;
+            }
+
+            if (decimal.TryParse(textBox6.Text, out decimal totalBonuses) && totalBonuses > 0)
+            {
+                e.Graphics.DrawString("Bonuses", bodyFont, brush, startX, startY);
+                e.Graphics.DrawString("₱" + textBox6.Text, bodyFont, brush, startX + 300, startY);
+                startY += lineHeight;
+            }
+
+            e.Graphics.DrawLine(Pens.Black, startX, startY, startX + 500, startY);
+            startY += lineHeight;
+
+            e.Graphics.DrawString("Net Pay", totalFont, brush, startX, startY);
+            e.Graphics.DrawString("₱" + textBox7.Text, totalFont, brush, startX + 300, startY);
+            startY += lineHeight * 2;
+
+            e.Graphics.DrawString("Date Printed: " + DateTime.Now.ToString("MMMM dd, yyyy HH:mm tt"), bodyFont, brush, startX, startY);
+        }
+        private void button1_Click_2(object sender, EventArgs e)
             {
                 if (comboBox1.SelectedValue == null || comboBox1.SelectedIndex == -1)
                 {
@@ -300,7 +341,7 @@
 
                 try
                 {
-                    // ✅ Get periodID using the selected periodStart
+
                     int periodId = 0;
                     string getPeriodIdQuery = "SELECT periodID FROM payrollperiod WHERE periodStart = @periodStart LIMIT 1";
 
@@ -319,7 +360,7 @@
                         }
                     }
 
-                    // ✅ Check if payroll already exists
+
                     string checkQuery = "SELECT COUNT(*) FROM payroll WHERE employeeID = @employeeID AND periodID = @periodID";
                     using (MySqlCommand checkCmd = new MySqlCommand(checkQuery, conn))
                     {
@@ -334,7 +375,7 @@
                         }
                     }
 
-                    // ✅ Load payroll data before printing
+
                     LoadPayrollSummary();
 
                     PrintDialog print = new PrintDialog();
@@ -346,14 +387,12 @@
                     {
                         printDocument1.Print();
 
-                        // ✅ Parse values from textboxes
                         decimal.TryParse(textBox3.Text, out decimal grossPay);
                         decimal.TryParse(textBox4.Text, out decimal penalty);
                         decimal.TryParse(textBox5.Text, out decimal deductions);
                         decimal.TryParse(textBox6.Text, out decimal bonuses);
                         decimal.TryParse(textBox7.Text, out decimal netPay);
 
-                        // ✅ Insert new payroll record
                         string insertQuery = @"
                     INSERT INTO payroll (employeeID, periodID, grossPay, totalPenalty, totalDeductions, bunos, netPay)
                     VALUES (@employeeID, @periodID, @grossPay, @penalty, @deductions, @bunos, @netPay)";
@@ -365,7 +404,7 @@
                             cmd.Parameters.AddWithValue("@grossPay", grossPay);
                             cmd.Parameters.AddWithValue("@penalty", penalty);
                             cmd.Parameters.AddWithValue("@deductions", deductions);
-                            cmd.Parameters.AddWithValue("@bunos", bonuses); // ✔ Ensure this column name is correct
+                            cmd.Parameters.AddWithValue("@bunos", bonuses); 
                             cmd.Parameters.AddWithValue("@netPay", netPay);
 
                             cmd.ExecuteNonQuery();
@@ -383,7 +422,7 @@
 
             private void ClearFormFields()
             {
-                comboBox1.SelectedIndex = 0; // Reset to "Select Employee"
+                comboBox1.SelectedIndex = 0; 
                 textBox1.Clear();
                 textBox2.Clear();
                 textBox3.Clear();
@@ -409,18 +448,15 @@
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
 
-                    // Add "Display" column
                     dt.Columns.Add("Display", typeof(string));
                     foreach (DataRow row in dt.Rows)
                     {
                         DateTime start = Convert.ToDateTime(row["periodStart"]);
                         DateTime end = Convert.ToDateTime(row["periodEnd"]);
 
-                        // Format: May 1 to 15 / 2025
                         row["Display"] = $"{start:MMMM d} to {end:dd} / {end:yyyy}";
                     }
 
-                    // Add "Select Period" as the first row
                     DataRow defaultRow = dt.NewRow();
                     defaultRow["Display"] = "Select Period";
                     defaultRow["periodStart"] = DBNull.Value;
@@ -441,7 +477,7 @@
             }
         public void PrintPayroll(long payrollID)
         {
-            // Load payroll data for the given payrollID
+
             string query = @"
         SELECT 
             p.payrollID,
@@ -472,7 +508,7 @@
                 {
                     if (reader.Read())
                     {
-                        comboBox1.Text = reader["Name"].ToString(); // Set employee name for printing
+                        comboBox1.Text = reader["Name"].ToString(); 
 
                         decimal grossPay = Convert.ToDecimal(reader["grossPay"]);
                         decimal totalPenalty = Convert.ToDecimal(reader["totalPenalty"]);
@@ -497,7 +533,7 @@
                 }
             }
 
-            // Trigger the print dialog
+
             PrintDialog printDialog = new PrintDialog();
             printDialog.Document = printDocument1;
             if (printDialog.ShowDialog() == DialogResult.OK)

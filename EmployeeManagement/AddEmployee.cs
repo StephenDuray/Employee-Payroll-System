@@ -34,8 +34,8 @@ namespace EmployeeManagement
 
         private void AddEmployee_Load(object sender, EventArgs e)
         {
-            // Example: Get department names from the database
-            List<string> departments = dbConn.GetDepartmentNames(); // You must have this method in dbConn
+            
+            List<string> departments = dbConn.GetDepartmentNames(); 
 
             departmentBox.Items.Clear();
             departmentBox.Items.AddRange(departments.ToArray());
@@ -147,7 +147,7 @@ namespace EmployeeManagement
                 return;
             }
 
-            // Convert image to byte array
+            
             byte[] imageBytes = null;
             if (pictureBox1.Image != null)
             {
@@ -159,22 +159,22 @@ namespace EmployeeManagement
                 }
             }
 
-            // Add employee and get the new employee ID
+            
             int employeeId = dbConn.AddEmployee(firstName, lastName, gender, email, dob, position, hourlyRate, phoneNoText, departmentName, imageBytes);
             if (employeeId != -1)
             {
                 MessageBox.Show("Employee added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Generate QR code with employee ID
+                
                 string qrContent = employeeId.ToString();
                 Bitmap qrCode = GenerateQRCode(qrContent);
 
-                // Save the QR code as an image file
+               
                 string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), $"Employee_{employeeId}_QRCode.png");
                 qrCode.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
                 MessageBox.Show($"QR Code saved to {filePath}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Optionally, print the QR code
+                
                 PrintQRCode(qrCode);
 
                 ClearFields();
@@ -191,14 +191,14 @@ namespace EmployeeManagement
 
         private void BackButton_Click(object sender, EventArgs e)
         {
-            // Call the ShowEmployeeControls method from Dashboard
-            dashboard.ShowEmployeeControls();  // This will show the employee controls as per EmployeeButton_Click logic
+            
+            dashboard.ShowEmployeeControls(); 
 
-            // Trigger EmployeeButton_Click directly to simulate the button click
-            dashboard.EmployeeButton_Click(sender, e);  // This triggers the functionality of the EmployeeButton
+            
+            dashboard.EmployeeButton_Click(sender, e);  
 
-            // Hide the current AddAttendance form
-            this.Hide();  // This hides the AddAttendance form, but Dashboard stays open
+            
+            this.Hide();  
             dashboard.Show();
         }
 
@@ -242,7 +242,7 @@ namespace EmployeeManagement
             PrintDocument printDocument = new PrintDocument();
             printDocument.PrintPage += (sender, e) =>
             {
-                // Center the QR code on the page
+                
                 int x = (e.PageBounds.Width - qrCode.Width) / 2;
                 int y = (e.PageBounds.Height - qrCode.Height) / 2;
                 e.Graphics.DrawImage(qrCode, x, y);
@@ -270,7 +270,7 @@ namespace EmployeeManagement
                     {
                         Image selectedImage = Image.FromFile(openFileDialog.FileName);
                         pictureBox1.Image = selectedImage;
-                        pictureBox1.Refresh(); // Ensure the PictureBox is refreshed to display the image
+                        pictureBox1.Refresh(); 
                     }
                     catch (Exception ex)
                     {

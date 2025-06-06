@@ -102,7 +102,7 @@ namespace EmployeeManagement
         }
         private void ProcessQRCode(string qrContent)
         {
-            // Update the label instead of showing a message box
+            
             if (!int.TryParse(qrContent.Trim(), out int employeeId))
             {
                 label1.Text = "Invalid QR Code content.";
@@ -117,30 +117,34 @@ namespace EmployeeManagement
                 return;
             }
 
-            // Check if there's an existing attendance record for today
+            
             var (timeIn, timeOut) = dbConn.GetAttendanceRecord(employeeId, currentDate);
 
             string employeeName = dbConn.GetEmployeeNameByID(employeeId);
 
             if (timeIn == null)
             {
-                // No record exists, so this is a time in
                 TimeSpan newTimeIn = DateTime.Now.TimeOfDay;
                 dbConn.AddAttendanceWithTimeIn(employeeId, currentDate, newTimeIn);
                 label1.Text = $"{employeeName} has timed in at {newTimeIn}.";
             }
             else if (timeOut == null)
             {
-                // Record exists but no time out, so this is a time out
+                
                 TimeSpan newTimeOut = DateTime.Now.TimeOfDay;
                 dbConn.UpdateAttendanceWithTimeOut(employeeId, currentDate, newTimeOut);
                 label1.Text = $"{employeeName} has timed out at {newTimeOut}.";
             }
             else
             {
-                // Both time in and time out are already recorded
+                
                 label1.Text = "Attendance for today is already complete.";
             }
+        }
+
+        private void ExitButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

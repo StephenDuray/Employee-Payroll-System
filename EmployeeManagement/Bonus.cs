@@ -154,7 +154,7 @@ namespace EmployeeManagement
 
         private void SaveBonus_Click(object sender, EventArgs e)
         {
-            // Validate selections
+            
             if (comboBox1.SelectedValue == null || comboBox1.SelectedValue == DBNull.Value ||
                 comboBox2.SelectedValue == null || comboBox2.SelectedValue == DBNull.Value ||
                 comboBox3.SelectedValue == null || comboBox3.SelectedValue == DBNull.Value ||
@@ -173,9 +173,9 @@ namespace EmployeeManagement
             int employeeID = Convert.ToInt32(comboBox1.SelectedValue);
             int bunosCatID = Convert.ToInt32(comboBox2.SelectedValue);
             int periodID = Convert.ToInt32(comboBox3.SelectedValue);
-            DateTime bonusDate = dateTimePicker1.Value.Date; // <-- Get the date from the DateTimePicker
+            DateTime bonusDate = dateTimePicker1.Value.Date; 
 
-            // Optional: Check for duplicate bonus for this employee, category, and period
+            
             string checkQuery = @"SELECT COUNT(*) FROM bunos WHERE employeeID = @employeeID AND bunosCatID = @bunosCatID AND periodID = @periodID AND bonusDate = @bonusDate";
             string insertQuery = @"INSERT INTO bunos (employeeID, bunosCatID, amount, periodID, bonusDate) VALUES (@employeeID, @bunosCatID, @amount, @periodID, @bonusDate)";
 
@@ -211,7 +211,7 @@ namespace EmployeeManagement
 
             MessageBox.Show("Bonus added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            // Optionally clear fields or refresh bonus list
+            
             textBox1.Clear();
             comboBox2.SelectedIndex = 0;
             comboBox3.SelectedIndex = 0;

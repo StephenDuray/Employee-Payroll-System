@@ -45,6 +45,24 @@
             this.timelabel = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.DateeLabel = new System.Windows.Forms.Label();
+            this.TimeeLabel = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.mainPanel = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.TotalemployeesQuery = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.terminatedLabelQuery = new System.Windows.Forms.Label();
+            this.terminatedLabel = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.LabelActiveQuery = new System.Windows.Forms.Label();
+            this.LabelActive = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.deductoinButton = new System.Windows.Forms.Button();
             this.bonusButton = new System.Windows.Forms.Button();
             this.ExitButton = new System.Windows.Forms.Button();
@@ -55,39 +73,21 @@
             this.addShiftButton = new System.Windows.Forms.Button();
             this.LogOutButton = new System.Windows.Forms.Button();
             this.attendanceButton = new System.Windows.Forms.Button();
-            this.DateeLabel = new System.Windows.Forms.Label();
-            this.TimeeLabel = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.mainPanel = new System.Windows.Forms.Panel();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.TotalemployeesQuery = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.terminatedLabelQuery = new System.Windows.Forms.Label();
-            this.terminatedLabel = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.LabelActiveQuery = new System.Windows.Forms.Label();
-            this.LabelActive = new System.Windows.Forms.Label();
             this.addAttendanceButton = new System.Windows.Forms.Button();
             this.UpdateButton = new System.Windows.Forms.Button();
             this.AddButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.mainPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -264,6 +264,203 @@
             this.panel1.TabIndex = 26;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
+            // DateeLabel
+            // 
+            this.DateeLabel.AutoSize = true;
+            this.DateeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DateeLabel.Location = new System.Drawing.Point(366, 224);
+            this.DateeLabel.Name = "DateeLabel";
+            this.DateeLabel.Size = new System.Drawing.Size(55, 20);
+            this.DateeLabel.TabIndex = 27;
+            this.DateeLabel.Text = "Date:";
+            this.DateeLabel.Visible = false;
+            // 
+            // TimeeLabel
+            // 
+            this.TimeeLabel.AutoSize = true;
+            this.TimeeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TimeeLabel.Location = new System.Drawing.Point(366, 268);
+            this.TimeeLabel.Name = "TimeeLabel";
+            this.TimeeLabel.Size = new System.Drawing.Size(56, 20);
+            this.TimeeLabel.TabIndex = 28;
+            this.TimeeLabel.Text = "Time:";
+            this.TimeeLabel.Visible = false;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(515, 331);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(174, 24);
+            this.comboBox1.TabIndex = 29;
+            this.comboBox1.Visible = false;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // mainPanel
+            // 
+            this.mainPanel.BackColor = System.Drawing.Color.White;
+            this.mainPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mainPanel.Controls.Add(this.pictureBox6);
+            this.mainPanel.Controls.Add(this.panel4);
+            this.mainPanel.Controls.Add(this.panel3);
+            this.mainPanel.Controls.Add(this.panel2);
+            this.mainPanel.Location = new System.Drawing.Point(326, 326);
+            this.mainPanel.Name = "mainPanel";
+            this.mainPanel.Size = new System.Drawing.Size(904, 545);
+            this.mainPanel.TabIndex = 30;
+            this.mainPanel.Visible = false;
+            this.mainPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.mainPanel_Paint);
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(200)))), ((int)(((byte)(255)))));
+            this.panel4.Controls.Add(this.pictureBox3);
+            this.panel4.Controls.Add(this.TotalemployeesQuery);
+            this.panel4.Controls.Add(this.label2);
+            this.panel4.Location = new System.Drawing.Point(612, 50);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(277, 181);
+            this.panel4.TabIndex = 2;
+            // 
+            // TotalemployeesQuery
+            // 
+            this.TotalemployeesQuery.AutoSize = true;
+            this.TotalemployeesQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TotalemployeesQuery.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalemployeesQuery.Location = new System.Drawing.Point(26, 51);
+            this.TotalemployeesQuery.Name = "TotalemployeesQuery";
+            this.TotalemployeesQuery.Size = new System.Drawing.Size(0, 51);
+            this.TotalemployeesQuery.TabIndex = 4;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(64, 138);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(210, 29);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Total Employees";
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(200)))), ((int)(((byte)(255)))));
+            this.panel3.Controls.Add(this.pictureBox4);
+            this.panel3.Controls.Add(this.terminatedLabelQuery);
+            this.panel3.Controls.Add(this.terminatedLabel);
+            this.panel3.Location = new System.Drawing.Point(314, 50);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(277, 181);
+            this.panel3.TabIndex = 1;
+            // 
+            // terminatedLabelQuery
+            // 
+            this.terminatedLabelQuery.AutoSize = true;
+            this.terminatedLabelQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.terminatedLabelQuery.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.terminatedLabelQuery.Location = new System.Drawing.Point(43, 52);
+            this.terminatedLabelQuery.Name = "terminatedLabelQuery";
+            this.terminatedLabelQuery.Size = new System.Drawing.Size(0, 51);
+            this.terminatedLabelQuery.TabIndex = 3;
+            // 
+            // terminatedLabel
+            // 
+            this.terminatedLabel.AutoSize = true;
+            this.terminatedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.terminatedLabel.Location = new System.Drawing.Point(93, 135);
+            this.terminatedLabel.Name = "terminatedLabel";
+            this.terminatedLabel.Size = new System.Drawing.Size(168, 32);
+            this.terminatedLabel.TabIndex = 2;
+            this.terminatedLabel.Text = "Terminated";
+            this.terminatedLabel.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(200)))), ((int)(((byte)(255)))));
+            this.panel2.Controls.Add(this.pictureBox5);
+            this.panel2.Controls.Add(this.LabelActiveQuery);
+            this.panel2.Controls.Add(this.LabelActive);
+            this.panel2.Location = new System.Drawing.Point(14, 50);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(277, 181);
+            this.panel2.TabIndex = 0;
+            // 
+            // LabelActiveQuery
+            // 
+            this.LabelActiveQuery.AutoSize = true;
+            this.LabelActiveQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LabelActiveQuery.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelActiveQuery.Location = new System.Drawing.Point(49, 54);
+            this.LabelActiveQuery.Name = "LabelActiveQuery";
+            this.LabelActiveQuery.Size = new System.Drawing.Size(0, 51);
+            this.LabelActiveQuery.TabIndex = 1;
+            // 
+            // LabelActive
+            // 
+            this.LabelActive.AutoSize = true;
+            this.LabelActive.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelActive.Location = new System.Drawing.Point(144, 135);
+            this.LabelActive.Name = "LabelActive";
+            this.LabelActive.Size = new System.Drawing.Size(103, 36);
+            this.LabelActive.TabIndex = 0;
+            this.LabelActive.Text = "Active";
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.White;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Image = global::EmployeeManagement.Properties.Resources.scan;
+            this.button1.Location = new System.Drawing.Point(438, 711);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(205, 63);
+            this.button1.TabIndex = 4;
+            this.button1.Text = " Scan";
+            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Image = global::EmployeeManagement.Properties.Resources.working;
+            this.pictureBox6.Location = new System.Drawing.Point(11, 269);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(881, 264);
+            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox6.TabIndex = 3;
+            this.pictureBox6.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::EmployeeManagement.Properties.Resources.activeje;
+            this.pictureBox3.Location = new System.Drawing.Point(120, 5);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(142, 129);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 2;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::EmployeeManagement.Properties.Resources.active;
+            this.pictureBox4.Location = new System.Drawing.Point(99, 7);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(175, 125);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox4.TabIndex = 4;
+            this.pictureBox4.TabStop = false;
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = global::EmployeeManagement.Properties.Resources.emops;
+            this.pictureBox5.Location = new System.Drawing.Point(132, 7);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(133, 127);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox5.TabIndex = 2;
+            this.pictureBox5.TabStop = false;
+            // 
             // deductoinButton
             // 
             this.deductoinButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
@@ -411,187 +608,6 @@
             this.attendanceButton.UseVisualStyleBackColor = true;
             this.attendanceButton.Click += new System.EventHandler(this.attendanceButton_Click);
             // 
-            // DateeLabel
-            // 
-            this.DateeLabel.AutoSize = true;
-            this.DateeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DateeLabel.Location = new System.Drawing.Point(366, 224);
-            this.DateeLabel.Name = "DateeLabel";
-            this.DateeLabel.Size = new System.Drawing.Size(55, 20);
-            this.DateeLabel.TabIndex = 27;
-            this.DateeLabel.Text = "Date:";
-            this.DateeLabel.Visible = false;
-            // 
-            // TimeeLabel
-            // 
-            this.TimeeLabel.AutoSize = true;
-            this.TimeeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TimeeLabel.Location = new System.Drawing.Point(366, 268);
-            this.TimeeLabel.Name = "TimeeLabel";
-            this.TimeeLabel.Size = new System.Drawing.Size(56, 20);
-            this.TimeeLabel.TabIndex = 28;
-            this.TimeeLabel.Text = "Time:";
-            this.TimeeLabel.Visible = false;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(515, 331);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(174, 24);
-            this.comboBox1.TabIndex = 29;
-            this.comboBox1.Visible = false;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            // 
-            // mainPanel
-            // 
-            this.mainPanel.BackColor = System.Drawing.Color.White;
-            this.mainPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.mainPanel.Controls.Add(this.pictureBox6);
-            this.mainPanel.Controls.Add(this.panel4);
-            this.mainPanel.Controls.Add(this.panel3);
-            this.mainPanel.Controls.Add(this.panel2);
-            this.mainPanel.Location = new System.Drawing.Point(337, 326);
-            this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(904, 545);
-            this.mainPanel.TabIndex = 30;
-            this.mainPanel.Visible = false;
-            this.mainPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.mainPanel_Paint);
-            // 
-            // pictureBox6
-            // 
-            this.pictureBox6.Image = global::EmployeeManagement.Properties.Resources.working;
-            this.pictureBox6.Location = new System.Drawing.Point(11, 269);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(881, 264);
-            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox6.TabIndex = 3;
-            this.pictureBox6.TabStop = false;
-            // 
-            // panel4
-            // 
-            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(200)))), ((int)(((byte)(255)))));
-            this.panel4.Controls.Add(this.pictureBox3);
-            this.panel4.Controls.Add(this.TotalemployeesQuery);
-            this.panel4.Controls.Add(this.label2);
-            this.panel4.Location = new System.Drawing.Point(612, 50);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(277, 181);
-            this.panel4.TabIndex = 2;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::EmployeeManagement.Properties.Resources.activeje;
-            this.pictureBox3.Location = new System.Drawing.Point(120, 5);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(142, 129);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 2;
-            this.pictureBox3.TabStop = false;
-            // 
-            // TotalemployeesQuery
-            // 
-            this.TotalemployeesQuery.AutoSize = true;
-            this.TotalemployeesQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.TotalemployeesQuery.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TotalemployeesQuery.Location = new System.Drawing.Point(26, 51);
-            this.TotalemployeesQuery.Name = "TotalemployeesQuery";
-            this.TotalemployeesQuery.Size = new System.Drawing.Size(0, 51);
-            this.TotalemployeesQuery.TabIndex = 4;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(64, 138);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(210, 29);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Total Employees";
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(200)))), ((int)(((byte)(255)))));
-            this.panel3.Controls.Add(this.pictureBox4);
-            this.panel3.Controls.Add(this.terminatedLabelQuery);
-            this.panel3.Controls.Add(this.terminatedLabel);
-            this.panel3.Location = new System.Drawing.Point(314, 50);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(277, 181);
-            this.panel3.TabIndex = 1;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Image = global::EmployeeManagement.Properties.Resources.active;
-            this.pictureBox4.Location = new System.Drawing.Point(99, 7);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(175, 125);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox4.TabIndex = 4;
-            this.pictureBox4.TabStop = false;
-            // 
-            // terminatedLabelQuery
-            // 
-            this.terminatedLabelQuery.AutoSize = true;
-            this.terminatedLabelQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.terminatedLabelQuery.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.terminatedLabelQuery.Location = new System.Drawing.Point(43, 52);
-            this.terminatedLabelQuery.Name = "terminatedLabelQuery";
-            this.terminatedLabelQuery.Size = new System.Drawing.Size(0, 51);
-            this.terminatedLabelQuery.TabIndex = 3;
-            // 
-            // terminatedLabel
-            // 
-            this.terminatedLabel.AutoSize = true;
-            this.terminatedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.terminatedLabel.Location = new System.Drawing.Point(93, 135);
-            this.terminatedLabel.Name = "terminatedLabel";
-            this.terminatedLabel.Size = new System.Drawing.Size(168, 32);
-            this.terminatedLabel.TabIndex = 2;
-            this.terminatedLabel.Text = "Terminated";
-            this.terminatedLabel.Click += new System.EventHandler(this.label2_Click);
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(200)))), ((int)(((byte)(255)))));
-            this.panel2.Controls.Add(this.pictureBox5);
-            this.panel2.Controls.Add(this.LabelActiveQuery);
-            this.panel2.Controls.Add(this.LabelActive);
-            this.panel2.Location = new System.Drawing.Point(14, 50);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(277, 181);
-            this.panel2.TabIndex = 0;
-            // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Image = global::EmployeeManagement.Properties.Resources.emops;
-            this.pictureBox5.Location = new System.Drawing.Point(132, 7);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(133, 127);
-            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox5.TabIndex = 2;
-            this.pictureBox5.TabStop = false;
-            // 
-            // LabelActiveQuery
-            // 
-            this.LabelActiveQuery.AutoSize = true;
-            this.LabelActiveQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.LabelActiveQuery.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelActiveQuery.Location = new System.Drawing.Point(49, 54);
-            this.LabelActiveQuery.Name = "LabelActiveQuery";
-            this.LabelActiveQuery.Size = new System.Drawing.Size(0, 51);
-            this.LabelActiveQuery.TabIndex = 1;
-            // 
-            // LabelActive
-            // 
-            this.LabelActive.AutoSize = true;
-            this.LabelActive.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelActive.Location = new System.Drawing.Point(144, 135);
-            this.LabelActive.Name = "LabelActive";
-            this.LabelActive.Size = new System.Drawing.Size(103, 36);
-            this.LabelActive.TabIndex = 0;
-            this.LabelActive.Text = "Active";
-            // 
             // addAttendanceButton
             // 
             this.addAttendanceButton.BackColor = System.Drawing.Color.White;
@@ -651,17 +667,6 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(464, 711);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(153, 63);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -699,18 +704,18 @@
             this.Load += new System.EventHandler(this.Dashboard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.mainPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
