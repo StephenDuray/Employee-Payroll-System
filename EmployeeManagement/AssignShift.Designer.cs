@@ -85,7 +85,7 @@
             this.shiftTypeBox.FormattingEnabled = true;
             this.shiftTypeBox.Location = new System.Drawing.Point(239, 169);
             this.shiftTypeBox.Name = "shiftTypeBox";
-            this.shiftTypeBox.Size = new System.Drawing.Size(185, 24);
+            this.shiftTypeBox.Size = new System.Drawing.Size(228, 24);
             this.shiftTypeBox.TabIndex = 5;
             this.shiftTypeBox.SelectedIndexChanged += new System.EventHandler(this.shiftyTypeBox_SelectedIndexChanged);
             // 
@@ -94,15 +94,15 @@
             this.dtpStart.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpStart.Location = new System.Drawing.Point(239, 229);
             this.dtpStart.Name = "dtpStart";
-            this.dtpStart.Size = new System.Drawing.Size(185, 22);
+            this.dtpStart.Size = new System.Drawing.Size(228, 22);
             this.dtpStart.TabIndex = 6;
             // 
             // dtpEnd
             // 
             this.dtpEnd.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpEnd.Location = new System.Drawing.Point(239, 286);
+            this.dtpEnd.Location = new System.Drawing.Point(239, 288);
             this.dtpEnd.Name = "dtpEnd";
-            this.dtpEnd.Size = new System.Drawing.Size(185, 22);
+            this.dtpEnd.Size = new System.Drawing.Size(228, 22);
             this.dtpEnd.TabIndex = 7;
             // 
             // BackButton
@@ -129,7 +129,7 @@
             this.assignShiftButton.Name = "assignShiftButton";
             this.assignShiftButton.Size = new System.Drawing.Size(185, 60);
             this.assignShiftButton.TabIndex = 8;
-            this.assignShiftButton.Text = "Assign Shift";
+            this.assignShiftButton.Text = "Apply  Shift";
             this.assignShiftButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.assignShiftButton.UseVisualStyleBackColor = true;
             this.assignShiftButton.Click += new System.EventHandler(this.assignShiftButton_Click);
@@ -139,7 +139,7 @@
             this.assignShiftempBox.FormattingEnabled = true;
             this.assignShiftempBox.Location = new System.Drawing.Point(239, 116);
             this.assignShiftempBox.Name = "assignShiftempBox";
-            this.assignShiftempBox.Size = new System.Drawing.Size(185, 24);
+            this.assignShiftempBox.Size = new System.Drawing.Size(228, 24);
             this.assignShiftempBox.TabIndex = 26;
             this.assignShiftempBox.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 

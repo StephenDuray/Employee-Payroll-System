@@ -212,8 +212,10 @@
             // 
             this.textBox6.Location = new System.Drawing.Point(218, 313);
             this.textBox6.Name = "textBox6";
+            this.textBox6.ReadOnly = true;
             this.textBox6.Size = new System.Drawing.Size(190, 22);
             this.textBox6.TabIndex = 73;
+            this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
             // 
             // textBox7
             // 

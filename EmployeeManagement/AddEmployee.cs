@@ -4,11 +4,14 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.Common;
 using System.Drawing;
+using System.Drawing.Printing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ZXing;
 
 namespace EmployeeManagement
 {
@@ -104,7 +107,6 @@ namespace EmployeeManagement
         {
             throw new NotImplementedException();
         }
-
         private void AddButton_Click(object sender, EventArgs e)
         {
             string firstName = FnameBox.Text.Trim();
@@ -116,7 +118,6 @@ namespace EmployeeManagement
             string position = positionBox.Text.Trim();
             DateTime dob = dateTimepicker.Value;
 
-            // Check for empty fields
             if (string.IsNullOrWhiteSpace(firstName) ||
                 string.IsNullOrWhiteSpace(lastName) ||
                 string.IsNullOrWhiteSpace(email) ||
@@ -124,39 +125,65 @@ namespace EmployeeManagement
                 string.IsNullOrWhiteSpace(position))
             {
                 MessageBox.Show("Please fill in all fields.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return; 
+                return;
+            }
+            if (dob.Year >= DateTime.Now.Year)
+            {
+                MessageBox.Show("Birthday year must be less than the current year.", "Invalid Birthday", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
-            // Check for valid hourly rate
             if (!int.TryParse(hourlyRateBox.Text.Trim(), out int hourlyRate))
             {
                 MessageBox.Show("Please enter a valid hourly rate.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return; 
+                return;
             }
 
-            
             phoneNoText = Regex.Replace(phoneNoText, @"\D", "");
 
-            // Check for valid phone number
             if (!Regex.IsMatch(phoneNoText, @"^\d{11}$"))
             {
                 MessageBox.Show("Contact number must be exactly 11 digits.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return; 
+                return;
             }
 
-            // Add employee to the database
-            if (dbConn.AddEmployee(firstName, lastName, gender, dob, position, hourlyRate, phoneNoText, email, departmentName))
+            // Convert image to byte array
+            byte[] imageBytes = null;
+            if (pictureBox1.Image != null)
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    pictureBox1.Image.Save(ms, pictureBox1.Image.RawFormat);
+                    imageBytes = ms.ToArray();
+                    pictureBox1.Image = null;
+                }
+            }
+
+            // Add employee and get the new employee ID
+            int employeeId = dbConn.AddEmployee(firstName, lastName, gender, email, dob, position, hourlyRate, phoneNoText, departmentName, imageBytes);
+            if (employeeId != -1)
             {
                 MessageBox.Show("Employee added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Generate QR code with employee ID
+                string qrContent = employeeId.ToString();
+                Bitmap qrCode = GenerateQRCode(qrContent);
+
+                // Save the QR code as an image file
+                string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), $"Employee_{employeeId}_QRCode.png");
+                qrCode.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
+                MessageBox.Show($"QR Code saved to {filePath}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Optionally, print the QR code
+                PrintQRCode(qrCode);
+
                 ClearFields();
             }
             else
             {
                 MessageBox.Show("Failed to add employee.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                ClearFields();
             }
         }
-
         private void departmentBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -193,6 +220,64 @@ namespace EmployeeManagement
         private void headerLabel_Click(object sender, EventArgs e)
         {
 
+        }
+       
+
+        private Bitmap GenerateQRCode(string content)
+        {
+            BarcodeWriter writer = new BarcodeWriter
+            {
+                Format = BarcodeFormat.QR_CODE,
+                Options = new ZXing.Common.EncodingOptions
+                {
+                    Width = 500,
+                    Height = 500
+                }
+            };
+            return writer.Write(content);
+        }
+
+        private void PrintQRCode(Bitmap qrCode)
+        {
+            PrintDocument printDocument = new PrintDocument();
+            printDocument.PrintPage += (sender, e) =>
+            {
+                // Center the QR code on the page
+                int x = (e.PageBounds.Width - qrCode.Width) / 2;
+                int y = (e.PageBounds.Height - qrCode.Height) / 2;
+                e.Graphics.DrawImage(qrCode, x, y);
+            };
+
+            try
+            {
+                printDocument.Print();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error printing QR code: {ex.Message}", "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void addImage_Click(object sender, EventArgs e)
+        {
+
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        Image selectedImage = Image.FromFile(openFileDialog.FileName);
+                        pictureBox1.Image = selectedImage;
+                        pictureBox1.Refresh(); // Ensure the PictureBox is refreshed to display the image
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error loading image: {ex.Message}", "Image Load Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
     }
 }

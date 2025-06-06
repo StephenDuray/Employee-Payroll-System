@@ -44,7 +44,8 @@ namespace EmployeeManagement
         
         public static bool AuthenticateUser(string username, string password)
         {
-            string query = "SELECT * FROM admin WHERE username = @username AND password = @password";
+            string query = "SELECT * FROM admin WHERE username = @username AND password = SHA2(@password, 256)";
+
             using (MySqlCommand cmd = new MySqlCommand(query, Instance.Connection))
             {
                 cmd.Parameters.AddWithValue("@username", username);
@@ -66,13 +67,14 @@ namespace EmployeeManagement
                 return cmd.ExecuteNonQuery() > 0;   
             }
         }
-        public static bool AddEmployee(string Fname, string Lname, string Gender, DateTime DateofBirth, string Position, int hourlyRate, string ContactNum, string Email, string DepartmentName)
+        public static int AddEmployee(string Fname, string Lname, string Gender, string Email, DateTime DateofBirth, string Position, int hourlyRate, string ContactNum, string DepartmentName, byte[] imageBytes)
         {
             string query = @"
-                     INSERT INTO employee (Fname, Lname, Gender, DateofBirth, Position, hourlyRate, ContactNum, Email, departmentID)
-                     SELECT @Fname, @Lname, @Gender, @DateofBirth, @Position, @hourlyRate, @ContactNum, @Email, d.departmentID
-                     FROM departments d
-                     WHERE d.departmentName = @DepartmentName";
+        INSERT INTO employee (Fname, Lname, Gender, DateofBirth, Position, hourlyRate, ContactNum, Email, departmentID, photo)
+        SELECT @Fname, @Lname, @Gender, @DateofBirth, @Position, @hourlyRate, @ContactNum, @Email, d.departmentID, @photo
+        FROM departments d
+        WHERE d.departmentName = @DepartmentName;
+        SELECT LAST_INSERT_ID();"; // Get the last inserted ID
 
             using (MySqlCommand cmd = new MySqlCommand(query, Instance.Connection))
             {
@@ -82,12 +84,34 @@ namespace EmployeeManagement
                 cmd.Parameters.AddWithValue("@DateofBirth", DateofBirth);
                 cmd.Parameters.AddWithValue("@Position", Position);
                 cmd.Parameters.AddWithValue("@hourlyRate", hourlyRate);
-                cmd.Parameters.AddWithValue("@ContactNum", ContactNum); 
+                cmd.Parameters.AddWithValue("@ContactNum", ContactNum);
                 cmd.Parameters.AddWithValue("@Email", Email);
                 cmd.Parameters.AddWithValue("@DepartmentName", DepartmentName);
+                cmd.Parameters.AddWithValue("@photo", imageBytes);
 
-                int rowsAffected = cmd.ExecuteNonQuery();
-                return rowsAffected > 0;
+                try
+                {
+                    if (Instance.Connection.State != ConnectionState.Open)
+                        Instance.Connection.Open();
+
+                    int employeeId = Convert.ToInt32(cmd.ExecuteScalar());
+                    return employeeId;
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("MySQL Error: " + ex.Message, "Insert Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return -1;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Unexpected Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return -1;
+                }
+                finally
+                {
+                    if (Instance.Connection.State == ConnectionState.Open)
+                        Instance.Connection.Close();
+                }
             }
         }
         public static List<string> GetEmployeeNames()
@@ -857,6 +881,7 @@ namespace EmployeeManagement
             }
         }
 
+
         public bool InsertPayrollPeriod(DateTime start, DateTime end, DateTime generatedDate)
         {
             string insertQuery = "INSERT INTO payrollPeriod (periodStart, periodEnd, generatedDate) VALUES (@start, @end, @dateGen)";
@@ -924,7 +949,145 @@ namespace EmployeeManagement
 
             return dt;
         }
+        public static bool AddAttendanceWithTimeIn(int employeeId, DateTime date, TimeSpan timeIn)
+        {
+            string query = @"
+            INSERT INTO attendance (employeeID, date, timeIn, status) 
+            VALUES (@employeeId, @date, @timeIn, 'Present')";
 
+            using (MySqlCommand cmd = new MySqlCommand(query, Instance.Connection))
+            {
+                cmd.Parameters.AddWithValue("@employeeId", employeeId);
+                cmd.Parameters.AddWithValue("@date", date);
+                cmd.Parameters.AddWithValue("@timeIn", timeIn);
+
+                if (Instance.Connection.State != ConnectionState.Open)
+                    Instance.Connection.Open();
+
+                return cmd.ExecuteNonQuery() > 0;
+            }
+        }
+        public static bool HasShiftOnDate(int employeeId, DateTime date)
+        {
+            string query = @"
+            SELECT COUNT(*) 
+            FROM shiftemployee 
+            WHERE employeeID = @employeeId 
+            AND @date BETWEEN startDate AND endDate";
+
+            using (MySqlCommand cmd = new MySqlCommand(query, Instance.Connection))
+            {
+                cmd.Parameters.AddWithValue("@employeeId", employeeId);
+                cmd.Parameters.AddWithValue("@date", date);
+
+                if (Instance.Connection.State != ConnectionState.Open)
+                    Instance.Connection.Open();
+
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                return count > 0;
+            }
+        }
+        public static bool UpdateAttendanceWithTimeOut(int employeeId, DateTime date, TimeSpan timeOut)
+        {
+            string query = @"
+            UPDATE attendance 
+            SET timeOut = @timeOut 
+            WHERE employeeID = @employeeId AND date = @date";
+
+            using (MySqlCommand cmd = new MySqlCommand(query, Instance.Connection))
+            {
+                cmd.Parameters.AddWithValue("@employeeId", employeeId);
+                cmd.Parameters.AddWithValue("@date", date);
+                cmd.Parameters.AddWithValue("@timeOut", timeOut);
+
+                if (Instance.Connection.State != ConnectionState.Open)
+                    Instance.Connection.Open();
+
+                return cmd.ExecuteNonQuery() > 0;
+            }
+        }
+        public static (TimeSpan? TimeIn, TimeSpan? TimeOut) GetAttendanceRecord(int employeeId, DateTime date)
+        {
+            string query = @"
+                SELECT timeIn, timeOut 
+                FROM attendance 
+                WHERE employeeID = @employeeId AND date = @date";
+
+            using (MySqlCommand cmd = new MySqlCommand(query, Instance.Connection))
+            {
+                cmd.Parameters.AddWithValue("@employeeId", employeeId);
+                cmd.Parameters.AddWithValue("@date", date);
+
+                if (Instance.Connection.State != ConnectionState.Open)
+                    Instance.Connection.Open();
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        TimeSpan? timeIn = reader.IsDBNull(reader.GetOrdinal("timeIn")) ? (TimeSpan?)null : reader.GetTimeSpan("timeIn");
+                        TimeSpan? timeOut = reader.IsDBNull(reader.GetOrdinal("timeOut")) ? (TimeSpan?)null : reader.GetTimeSpan("timeOut");
+                        return (timeIn, timeOut);
+                    }
+                }
+            }
+            return (null, null);
+        }
+        public static bool UpdateAttendanceMetrics(int employeeId, DateTime date, int lateMinutes, int undertimeMinutes, string hoursWorked)
+        {
+            string query = @"
+                UPDATE attendance 
+                SET minutesLates = @lateMinutes, 
+                    underTimeMinutes = @undertimeMinutes, 
+                    hoursWorked = @hoursWorked 
+                WHERE employeeID = @employeeId AND date = @date";
+
+            using (MySqlCommand cmd = new MySqlCommand(query, Instance.Connection))
+            {
+                cmd.Parameters.AddWithValue("@employeeId", employeeId);
+                cmd.Parameters.AddWithValue("@date", date);
+                cmd.Parameters.AddWithValue("@lateMinutes", lateMinutes);
+                cmd.Parameters.AddWithValue("@undertimeMinutes", undertimeMinutes);
+                cmd.Parameters.AddWithValue("@hoursWorked", hoursWorked);
+
+                if (Instance.Connection.State != ConnectionState.Open)
+                    Instance.Connection.Open();
+
+                return cmd.ExecuteNonQuery() > 0;
+            }
+        }
+        public static (TimeSpan? shiftStart, TimeSpan? shiftEnd) GetShiftTimings(int employeeId, DateTime date)
+        {
+            string query = @"
+                SELECT s.timeIn, s.timeOut
+                FROM shiftemployee se
+                INNER JOIN shift s ON se.shiftID = s.shiftID
+                WHERE se.employeeID = @employeeId
+                  AND @date BETWEEN se.startDate AND se.endDate
+                LIMIT 1";
+
+            using (MySqlCommand cmd = new MySqlCommand(query, Instance.Connection))
+            {
+                cmd.Parameters.AddWithValue("@employeeId", employeeId);
+                cmd.Parameters.AddWithValue("@date", date);
+
+                if (Instance.Connection.State != ConnectionState.Open)
+                    Instance.Connection.Open();
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        TimeSpan shiftStart = reader.GetTimeSpan("timeIn");
+                        TimeSpan shiftEnd = reader.GetTimeSpan("timeOut");
+                        return (shiftStart, shiftEnd);
+                    }
+                }
+            }
+
+            // Return null if no shift is found
+            return (null, null);
+        }
     }
 }
 

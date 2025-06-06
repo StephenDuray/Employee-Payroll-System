@@ -51,7 +51,7 @@
             // 
             this.nameLabel.AutoSize = true;
             this.nameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nameLabel.Location = new System.Drawing.Point(96, 92);
+            this.nameLabel.Location = new System.Drawing.Point(99, 83);
             this.nameLabel.Name = "nameLabel";
             this.nameLabel.Size = new System.Drawing.Size(73, 22);
             this.nameLabel.TabIndex = 1;
@@ -60,7 +60,7 @@
             // dtp2
             // 
             this.dtp2.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtp2.Location = new System.Drawing.Point(237, 176);
+            this.dtp2.Location = new System.Drawing.Point(240, 167);
             this.dtp2.Margin = new System.Windows.Forms.Padding(4);
             this.dtp2.Name = "dtp2";
             this.dtp2.Size = new System.Drawing.Size(163, 22);
@@ -69,7 +69,7 @@
             // dtp1
             // 
             this.dtp1.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtp1.Location = new System.Drawing.Point(237, 134);
+            this.dtp1.Location = new System.Drawing.Point(240, 125);
             this.dtp1.Margin = new System.Windows.Forms.Padding(4);
             this.dtp1.Name = "dtp1";
             this.dtp1.Size = new System.Drawing.Size(163, 22);
@@ -79,7 +79,7 @@
             // 
             this.TimeOut.AutoSize = true;
             this.TimeOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TimeOut.Location = new System.Drawing.Point(82, 174);
+            this.TimeOut.Location = new System.Drawing.Point(85, 165);
             this.TimeOut.Name = "TimeOut";
             this.TimeOut.Size = new System.Drawing.Size(98, 22);
             this.TimeOut.TabIndex = 5;
@@ -89,7 +89,7 @@
             // 
             this.TimeIn.AutoSize = true;
             this.TimeIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TimeIn.Location = new System.Drawing.Point(92, 137);
+            this.TimeIn.Location = new System.Drawing.Point(95, 128);
             this.TimeIn.Name = "TimeIn";
             this.TimeIn.Size = new System.Drawing.Size(82, 22);
             this.TimeIn.TabIndex = 6;
@@ -99,7 +99,7 @@
             // 
             this.lateLabel.AutoSize = true;
             this.lateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lateLabel.Location = new System.Drawing.Point(56, 256);
+            this.lateLabel.Location = new System.Drawing.Point(59, 247);
             this.lateLabel.Name = "lateLabel";
             this.lateLabel.Size = new System.Drawing.Size(138, 22);
             this.lateLabel.TabIndex = 9;
@@ -109,7 +109,7 @@
             // 
             this.undertimeLabel.AutoSize = true;
             this.undertimeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.undertimeLabel.Location = new System.Drawing.Point(23, 296);
+            this.undertimeLabel.Location = new System.Drawing.Point(26, 287);
             this.undertimeLabel.Name = "undertimeLabel";
             this.undertimeLabel.Size = new System.Drawing.Size(190, 22);
             this.undertimeLabel.TabIndex = 11;
@@ -119,7 +119,7 @@
             // 
             this.totalhrsworkLabel.AutoSize = true;
             this.totalhrsworkLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalhrsworkLabel.Location = new System.Drawing.Point(18, 338);
+            this.totalhrsworkLabel.Location = new System.Drawing.Point(21, 329);
             this.totalhrsworkLabel.Name = "totalhrsworkLabel";
             this.totalhrsworkLabel.Size = new System.Drawing.Size(189, 22);
             this.totalhrsworkLabel.TabIndex = 10;
@@ -128,7 +128,7 @@
             // lateBox
             // 
             this.lateBox.BackColor = System.Drawing.Color.LightGray;
-            this.lateBox.Location = new System.Drawing.Point(237, 258);
+            this.lateBox.Location = new System.Drawing.Point(240, 249);
             this.lateBox.Name = "lateBox";
             this.lateBox.Size = new System.Drawing.Size(163, 22);
             this.lateBox.TabIndex = 13;
@@ -136,7 +136,7 @@
             // undertimeBox
             // 
             this.undertimeBox.BackColor = System.Drawing.Color.LightGray;
-            this.undertimeBox.Location = new System.Drawing.Point(237, 298);
+            this.undertimeBox.Location = new System.Drawing.Point(240, 289);
             this.undertimeBox.Name = "undertimeBox";
             this.undertimeBox.Size = new System.Drawing.Size(163, 22);
             this.undertimeBox.TabIndex = 14;
@@ -144,7 +144,7 @@
             // totalworkBox
             // 
             this.totalworkBox.BackColor = System.Drawing.Color.LightGray;
-            this.totalworkBox.Location = new System.Drawing.Point(237, 340);
+            this.totalworkBox.Location = new System.Drawing.Point(240, 331);
             this.totalworkBox.Name = "totalworkBox";
             this.totalworkBox.Size = new System.Drawing.Size(163, 22);
             this.totalworkBox.TabIndex = 15;
@@ -153,7 +153,7 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(237, 92);
+            this.comboBox1.Location = new System.Drawing.Point(240, 83);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(163, 24);
             this.comboBox1.TabIndex = 26;
@@ -179,7 +179,7 @@
             this.addAttendButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.addAttendButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addAttendButton.Image = global::EmployeeManagement.Properties.Resources.addAttendance;
-            this.addAttendButton.Location = new System.Drawing.Point(217, 378);
+            this.addAttendButton.Location = new System.Drawing.Point(237, 378);
             this.addAttendButton.Name = "addAttendButton";
             this.addAttendButton.Size = new System.Drawing.Size(163, 60);
             this.addAttendButton.TabIndex = 16;
@@ -192,7 +192,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(101, 211);
+            this.label1.Location = new System.Drawing.Point(104, 202);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(73, 22);
             this.label1.TabIndex = 27;
@@ -201,7 +201,7 @@
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(237, 214);
+            this.radioButton1.Location = new System.Drawing.Point(240, 205);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(74, 20);
             this.radioButton1.TabIndex = 28;
@@ -213,7 +213,7 @@
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(327, 215);
+            this.radioButton2.Location = new System.Drawing.Point(330, 206);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(70, 20);
             this.radioButton2.TabIndex = 29;

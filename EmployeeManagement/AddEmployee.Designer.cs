@@ -50,6 +50,9 @@
             this.ExitButton = new System.Windows.Forms.Button();
             this.BackButton = new System.Windows.Forms.Button();
             this.AddButton = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.addImage = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // Fname
@@ -97,18 +100,18 @@
             // 
             this.FnameBox.BackColor = System.Drawing.Color.LightGray;
             this.FnameBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FnameBox.Location = new System.Drawing.Point(183, 97);
+            this.FnameBox.Location = new System.Drawing.Point(183, 92);
             this.FnameBox.Name = "FnameBox";
-            this.FnameBox.Size = new System.Drawing.Size(175, 28);
+            this.FnameBox.Size = new System.Drawing.Size(241, 28);
             this.FnameBox.TabIndex = 7;
             // 
             // LnameBox
             // 
             this.LnameBox.BackColor = System.Drawing.Color.LightGray;
             this.LnameBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LnameBox.Location = new System.Drawing.Point(183, 142);
+            this.LnameBox.Location = new System.Drawing.Point(183, 137);
             this.LnameBox.Name = "LnameBox";
-            this.LnameBox.Size = new System.Drawing.Size(175, 28);
+            this.LnameBox.Size = new System.Drawing.Size(241, 28);
             this.LnameBox.TabIndex = 8;
             this.LnameBox.TextChanged += new System.EventHandler(this.LnameBox_TextChanged);
             // 
@@ -117,7 +120,7 @@
             this.dateTimepicker.CalendarMonthBackground = System.Drawing.Color.LightGray;
             this.dateTimepicker.Location = new System.Drawing.Point(183, 211);
             this.dateTimepicker.Name = "dateTimepicker";
-            this.dateTimepicker.Size = new System.Drawing.Size(200, 22);
+            this.dateTimepicker.Size = new System.Drawing.Size(241, 22);
             this.dateTimepicker.TabIndex = 10;
             // 
             // radioButton1
@@ -158,7 +161,7 @@
             this.positionBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.positionBox.Location = new System.Drawing.Point(183, 248);
             this.positionBox.Name = "positionBox";
-            this.positionBox.Size = new System.Drawing.Size(175, 28);
+            this.positionBox.Size = new System.Drawing.Size(241, 28);
             this.positionBox.TabIndex = 15;
             // 
             // hourlyLabel
@@ -177,7 +180,7 @@
             this.hourlyRateBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.hourlyRateBox.Location = new System.Drawing.Point(183, 292);
             this.hourlyRateBox.Name = "hourlyRateBox";
-            this.hourlyRateBox.Size = new System.Drawing.Size(175, 28);
+            this.hourlyRateBox.Size = new System.Drawing.Size(241, 28);
             this.hourlyRateBox.TabIndex = 17;
             // 
             // contactNumberLabel
@@ -196,7 +199,7 @@
             this.contactnumberBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.contactnumberBox.Location = new System.Drawing.Point(183, 339);
             this.contactnumberBox.Name = "contactnumberBox";
-            this.contactnumberBox.Size = new System.Drawing.Size(175, 28);
+            this.contactnumberBox.Size = new System.Drawing.Size(241, 28);
             this.contactnumberBox.TabIndex = 19;
             // 
             // EmailLabel
@@ -215,7 +218,7 @@
             this.EmailBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EmailBox.Location = new System.Drawing.Point(183, 380);
             this.EmailBox.Name = "EmailBox";
-            this.EmailBox.Size = new System.Drawing.Size(175, 28);
+            this.EmailBox.Size = new System.Drawing.Size(241, 28);
             this.EmailBox.TabIndex = 21;
             // 
             // DepartmentLabel
@@ -235,7 +238,7 @@
             this.departmentBox.FormattingEnabled = true;
             this.departmentBox.Location = new System.Drawing.Point(183, 431);
             this.departmentBox.Name = "departmentBox";
-            this.departmentBox.Size = new System.Drawing.Size(175, 28);
+            this.departmentBox.Size = new System.Drawing.Size(241, 28);
             this.departmentBox.TabIndex = 23;
             this.departmentBox.SelectedIndexChanged += new System.EventHandler(this.departmentBox_SelectedIndexChanged);
             // 
@@ -245,7 +248,7 @@
             this.ExitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ExitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ExitButton.Image = global::EmployeeManagement.Properties.Resources.exitButton1;
-            this.ExitButton.Location = new System.Drawing.Point(403, 0);
+            this.ExitButton.Location = new System.Drawing.Point(775, 0);
             this.ExitButton.Name = "ExitButton";
             this.ExitButton.Size = new System.Drawing.Size(96, 52);
             this.ExitButton.TabIndex = 25;
@@ -276,7 +279,7 @@
             this.AddButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.AddButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AddButton.Image = global::EmployeeManagement.Properties.Resources.addEmployee;
-            this.AddButton.Location = new System.Drawing.Point(183, 489);
+            this.AddButton.Location = new System.Drawing.Point(555, 486);
             this.AddButton.Name = "AddButton";
             this.AddButton.Size = new System.Drawing.Size(178, 60);
             this.AddButton.TabIndex = 13;
@@ -285,12 +288,40 @@
             this.AddButton.UseVisualStyleBackColor = false;
             this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Gray;
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pictureBox1.Location = new System.Drawing.Point(527, 114);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(266, 250);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 26;
+            this.pictureBox1.TabStop = false;
+            // 
+            // addImage
+            // 
+            this.addImage.BackColor = System.Drawing.Color.White;
+            this.addImage.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.addImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addImage.Image = global::EmployeeManagement.Properties.Resources.addEmployee;
+            this.addImage.Location = new System.Drawing.Point(555, 380);
+            this.addImage.Name = "addImage";
+            this.addImage.Size = new System.Drawing.Size(178, 60);
+            this.addImage.TabIndex = 27;
+            this.addImage.Text = "Image";
+            this.addImage.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.addImage.UseVisualStyleBackColor = false;
+            this.addImage.Click += new System.EventHandler(this.addImage_Click);
+            // 
             // AddEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(499, 581);
+            this.ClientSize = new System.Drawing.Size(869, 581);
+            this.Controls.Add(this.addImage);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.ExitButton);
             this.Controls.Add(this.BackButton);
             this.Controls.Add(this.departmentBox);
@@ -318,6 +349,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = " ";
             this.Load += new System.EventHandler(this.AddEmployee_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -346,5 +378,7 @@
         private System.Windows.Forms.ComboBox departmentBox;
         private System.Windows.Forms.Button BackButton;
         private System.Windows.Forms.Button ExitButton;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button addImage;
     }
 }

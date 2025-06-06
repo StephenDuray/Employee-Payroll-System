@@ -55,13 +55,18 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
                 timelabel.Visible = false;
                 DateeLabel.Visible = false;
                 TimeeLabel.Visible = false;
+                mainPanel.Visible = false;
+                button1.Visible = false;
+                
 
                 searchLabel.Visible = true;
+                //button1.Visible = true;
                 searchBox.Visible = true;
                 AddButton.Visible = true;
                 UpdateButton.Visible = true;
                 dataGridView1.Visible = true;
                 SearchButton.Visible = true;
+                //button1.Visible = true;
                 LoadEmployeesToGrid();
             }
         public void EmployeeButton_Click(object sender, EventArgs e)
@@ -94,6 +99,12 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
                 DateeLabel.Visible = true;
                 TimeeLabel.Visible = true;
+                mainPanel.Visible = true;
+
+            Controls.SetChildIndex(button1, 1); // Assuming the panel is at index 0
+            Controls.SetChildIndex(mainPanel, 0);
+
+            UpdateDashboardCounts();
 
         }
             private void LoadEmployeesToGrid()
@@ -194,6 +205,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
                 UpdateButton.Visible = false;
                 datelabel.Visible = false;
                 timelabel.Visible = false;
+                mainPanel.Visible = false; 
 
                 attendanceSearchLabel.Visible = true;
                 addAttendanceButton.Visible = true;
@@ -203,6 +215,8 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
                 startDateLabel.Visible = true;
                 endDateLabel.Visible = true;
                 dataGridView1.Visible = true;
+                button1.Visible = true;
+                
 
 
                 dataGridView1.DataSource = null;
@@ -226,6 +240,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
                 timelabel.Visible = true;
                 DateeLabel.Visible = true;
                 TimeeLabel.Visible = true;
+                mainPanel.Visible = true;
 
                 dataGridView1.Visible = false;
                 label1.Visible = false;
@@ -242,6 +257,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
                 attendanceEndDTP.Visible = false;
                 attendancestartDTP.Visible=false;
                 addAttendanceButton.Visible = false;
+                button1.Visible = false;
         }
 
             private void addAttendanceButton_Click(object sender, EventArgs e)
@@ -292,7 +308,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
             string query = @"
                 SELECT DISTINCT 
                     e.employeeID,
-                    CONCAT(e.Fname, ' ', e.Lname) AS FullName,
+                    CONCAT(e.Fname, ' ', e.Lname) AS Name,
                     a.Date AS AttendanceDate,
                     a.timeIn,
                     a.timeOut,
@@ -338,7 +354,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
         }
         private void LoadEmployeeNamesToComboBox()
         {
-            string query = "SELECT employeeID, CONCAT(Fname, ' ', Lname) AS FullName FROM employee";
+            string query = "SELECT employeeID, CONCAT(Fname, ' ', Lname) AS Name FROM employee";
 
             try
             {
@@ -357,11 +373,11 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
                 // Add placeholder row
                 DataRow newRow = dt.NewRow();
                 newRow["employeeID"] = DBNull.Value;
-                newRow["FullName"] = "Select Employee";
+                newRow["Name"] = "Select Employee";
                 dt.Rows.InsertAt(newRow, 0);
 
                 comboBox1.DataSource = dt;
-                comboBox1.DisplayMember = "FullName";
+                comboBox1.DisplayMember = "Name";
                 comboBox1.ValueMember = "employeeID";
                 comboBox1.SelectedIndex = 0;
 
@@ -375,17 +391,17 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
                     // Modified query to include status
                     string attendanceQuery = @"
-            SELECT 
-                e.employeeID,
-                CONCAT(e.Fname, ' ', e.Lname) AS FullName,
-                a.Date AS AttendanceDate,
-                a.timeIn,
-                a.timeOut,
-                a.status  -- Added status column
-            FROM employee e
-            INNER JOIN attendance a ON e.employeeID = a.employeeID
-            WHERE e.employeeID = @employeeID
-            ORDER BY a.Date";
+                        SELECT 
+                            e.employeeID,
+                            CONCAT(e.Fname, ' ', e.Lname) AS Name,
+                            a.Date AS AttendanceDate,
+                            a.timeIn,
+                            a.timeOut,
+                            a.status  -- Added status column
+                        FROM employee e
+                        INNER JOIN attendance a ON e.employeeID = a.employeeID
+                        WHERE e.employeeID = @employeeID
+                        ORDER BY a.Date";
 
                     try
                     {
@@ -457,5 +473,64 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
         {
                 
         }
+
+        private void bonusButton_Click(object sender, EventArgs e)
+        {
+            Bonus bon = new Bonus();
+            bon.Show();
+        }
+
+        private void mainPanel_Paint(object sender, PaintEventArgs e)
+        {
+            button1.Visible = false;
+        }
+        public void UpdateDashboardCounts()
+        {
+            string query = @"
+           SELECT 
+            COUNT(*) AS Total,
+            SUM(CASE WHEN status = 'Active' THEN 1 ELSE 0 END) AS Active,
+            SUM(CASE WHEN status = 'Terminated' THEN 1 ELSE 0 END) AS TerminatedCount
+           FROM employee";
+
+
+            var conn = dbConn.Instance.Connection;
+            if (conn.State != ConnectionState.Open)
+                conn.Open();
+
+            using (MySqlCommand cmd = new MySqlCommand(query, conn))
+            using (MySqlDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    LabelActiveQuery.Text = reader["Active"] != DBNull.Value ? reader["Active"].ToString() : "0";
+                    terminatedLabelQuery.Text = reader["TerminatedCount"] != DBNull.Value ? reader["TerminatedCount"].ToString() : "0";
+                    TotalemployeesQuery.Text = reader["Total"] != DBNull.Value ? reader["Total"].ToString() : "0";
+                }
+
+            }
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ButtonForScann_Click(object sender, EventArgs e)
+        {
+            AttendanceScanner attendanceScanner = new AttendanceScanner();
+            attendanceScanner.Show();
+        }
+
+        private void pictureBox6_Click(object sender, EventArgs e)
+        {
+            button1.Visible = false;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            AttendanceScanner attendanceScanner = new AttendanceScanner();
+            attendanceScanner.Show();
+        }
     }
-    }
+}

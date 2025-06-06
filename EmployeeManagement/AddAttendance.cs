@@ -206,12 +206,19 @@ namespace EmployeeManagement
                 return;
             }
 
-            // SQL query to fetch shift timings for the employee
-            string shiftQuery = "SELECT timeIn, timeOut FROM shiftemployee es INNER JOIN shift s ON s.shiftID = es.shiftID WHERE es.employeeID = @id";
+            // SQL query to fetch shift timings for the employee on the selected date
+            string shiftQuery = @"
+        SELECT s.timeIn, s.timeOut
+        FROM shiftemployee es
+        INNER JOIN shift s ON s.shiftID = es.shiftID
+        WHERE es.employeeID = @id
+          AND @date BETWEEN es.startDate AND es.endDate
+        LIMIT 1";
 
             using (MySqlCommand cmd = new MySqlCommand(shiftQuery, dbConn.Instance.Connection))
             {
                 cmd.Parameters.AddWithValue("@id", employeeID);
+                cmd.Parameters.AddWithValue("@date", dtp1.Value.Date); // Use the date part only
 
                 if (dbConn.Instance.Connection.State != ConnectionState.Open)
                     dbConn.Instance.Connection.Open();
@@ -244,12 +251,12 @@ namespace EmployeeManagement
 
                         // Update the UI with the calculated values
                         lateBox.Text = lateMinutes.ToString();                          // Late
-                        undertimeBox.Text = undertimeMinutes.ToString();                    // Undertime
+                        undertimeBox.Text = undertimeMinutes.ToString();                // Undertime
                         totalworkBox.Text = $"{(int)worked.TotalHours}h {worked.Minutes}m"; // Total worked time
                     }
                     else
                     {
-                        MessageBox.Show("No shift assigned to this employee.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No shift assigned to this employee on the selected date.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }

@@ -160,6 +160,7 @@ namespace EmployeeManagement
             if (dbConn.UpdateEmployee(employeeID, firstName, lastName, gender, dob, position, hourlyRate, phoneNoText, email, departmentName, status))
             {
                 MessageBox.Show("Employee updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                dashboard.UpdateDashboardCounts(); 
                 this.Hide();
             }
             else

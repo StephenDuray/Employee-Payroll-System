@@ -28,7 +28,9 @@ namespace EmployeeManagement
         {
             string username = usernameBox.Text;
             string password = passBox.Text;
-            
+            //string Fname = textBox1.Text;
+            //string Lname = textBox2.Text;
+
             if (dbConn.AuthenticateUser(username, password))
             {
                 MessageBox.Show("Log in successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -49,6 +51,11 @@ namespace EmployeeManagement
         }
 
         private void Login_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }
