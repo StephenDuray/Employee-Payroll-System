@@ -1088,6 +1088,44 @@ namespace EmployeeManagement
             // Return null if no shift is found
             return (null, null);
         }
+        public static bool AddLeaveRecord(int employeeId, DateTime startDate, DateTime endDate, bool isLeaveWithPay)
+        {
+            string query = @"
+                INSERT INTO leaveRecord (employeeID, startDate, endDate, isLeaveWithPay) 
+                VALUES (@employeeId, @startDate, @endDate, @isLeaveWithPay)";
+
+            using (MySqlCommand cmd = new MySqlCommand(query, Instance.Connection))
+            {
+                cmd.Parameters.AddWithValue("@employeeId", employeeId);
+                cmd.Parameters.AddWithValue("@startDate", startDate);
+                cmd.Parameters.AddWithValue("@endDate", endDate);
+                cmd.Parameters.AddWithValue("@isLeaveWithPay", isLeaveWithPay);
+
+                try
+                {
+                    if (Instance.Connection.State != ConnectionState.Open)
+                        Instance.Connection.Open();
+
+                    return cmd.ExecuteNonQuery() > 0;
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("MySQL Error: " + ex.Message, "Insert Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Unexpected Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                finally
+                {
+                    if (Instance.Connection.State == ConnectionState.Open)
+                        Instance.Connection.Close();
+                }
+            }
+        }
+       
     }
 }
 

@@ -132,11 +132,9 @@
         {
             if (comboBox1.SelectedValue != null && int.TryParse(comboBox1.SelectedValue.ToString(), out int selectedId))
             {
-                
                 DataRowView selectedPeriod = comboBox2.SelectedItem as DataRowView;
                 if (selectedPeriod == null || selectedPeriod["periodStart"] == DBNull.Value || selectedPeriod["periodEnd"] == DBNull.Value)
                 {
-                    
                     ClearTextBoxes();
                     return;
                 }
@@ -144,39 +142,57 @@
                 DateTime periodStart = Convert.ToDateTime(selectedPeriod["periodStart"]);
                 DateTime periodEnd = Convert.ToDateTime(selectedPeriod["periodEnd"]);
 
+                // ############### REVISED SQL QUERY ###############
+                // This query now starts from the employee table to ensure calculations
+                // are performed even if there are no attendance records for the period.
                 string query = @"
-                    SELECT 
-                        e.employeeID AS employeeID,
-                        e.hourlyRate,
-                        (SUM(TIMESTAMPDIFF(MINUTE, a.timeIn, a.timeOut)) - (COUNT(*) * 60)) / 60 AS total_hours_worked,
-                        SUM(GREATEST(TIMESTAMPDIFF(MINUTE, s.timeIn, a.timeIn), 0)) AS total_late_minutes,
-                        SUM(GREATEST(TIMESTAMPDIFF(MINUTE, a.timeOut, s.timeOut), 0)) AS total_undertime_minutes,
-                        IFNULL((SELECT GROUP_CONCAT(CONCAT(dc.deductionName, ': ₱', d.amount) SEPARATOR '\n') 
-                                FROM deductions d
-                                JOIN deductionCategory dc ON d.deductionCatID = dc.deductionCatID
-                                WHERE d.employeeID = e.employeeID), 'None') AS detailed_deductions,
-                        IFNULL((SELECT GROUP_CONCAT(CONCAT(bc.bunosName, ': ₱', b.amount) SEPARATOR '\n') 
-                                FROM bunos b
-                                JOIN bunosCategory bc ON b.bunosCatID = bc.bunosCatID
-                                WHERE b.employeeID = e.employeeID 
-                                  AND b.bonusDate BETWEEN @period_start AND @period_end), 'None') AS detailed_bonuses,
-                        IFNULL((SELECT SUM(amount) FROM deductions WHERE employeeID = e.employeeID), 0) AS total_deductions,
-                        IFNULL(
-                            (SELECT SUM(amount) FROM bunos 
-                             WHERE employeeID = e.employeeID 
-                               AND bonusDate BETWEEN @period_start AND @period_end
-                            ), 0
-                        ) AS bonus
-                    FROM attendance a
-                    JOIN employee e ON e.employeeID = a.employeeID
-                    JOIN shiftemployee se ON se.employeeID = a.employeeID
-                        AND a.date BETWEEN se.startDate AND se.endDate
-                    JOIN shift s ON s.shiftID = se.shiftID
-                    WHERE a.employeeID = @employee_id
-                      AND a.status != 'Absent'
-                      AND a.date BETWEEN @period_start AND @period_end
-                    GROUP BY e.employeeID;
-                ";
+        SELECT
+            e.employeeID,
+            e.hourlyRate,
+            IFNULL(att_summary.total_hours_worked, 0) AS total_hours_worked,
+            IFNULL(att_summary.total_late_minutes, 0) AS total_late_minutes,
+            IFNULL(att_summary.total_undertime_minutes, 0) AS total_undertime_minutes,
+            IFNULL((SELECT GROUP_CONCAT(CONCAT(dc.deductionName, ': ₱', d.amount) SEPARATOR '\n')
+                    FROM deductions d
+                    JOIN deductionCategory dc ON d.deductionCatID = dc.deductionCatID
+                    WHERE d.employeeID = e.employeeID), 'None') AS detailed_deductions,
+            IFNULL((SELECT GROUP_CONCAT(CONCAT(bc.bunosName, ': ₱', b.amount) SEPARATOR '\n')
+                    FROM bunos b
+                    JOIN bunosCategory bc ON b.bunosCatID = bc.bunosCatID
+                    WHERE b.employeeID = e.employeeID
+                      AND b.bonusDate BETWEEN @period_start AND @period_end), 'None') AS detailed_bonuses,
+            IFNULL((SELECT SUM(amount) FROM deductions WHERE employeeID = e.employeeID), 0) AS total_deductions,
+            IFNULL((SELECT SUM(amount) FROM bunos
+                     WHERE employeeID = e.employeeID
+                       AND bonusDate BETWEEN @period_start AND @period_end), 0) AS bonus,
+            IFNULL((SELECT SUM(DATEDIFF(LEAST(@period_end, l.endDate), GREATEST(@period_start, l.startDate)) + 1)
+                     FROM leaverecord l
+                     WHERE l.employeeID = e.employeeID
+                       AND l.isLeaveWithPay = 1
+                       AND l.startDate <= @period_end
+                       AND l.endDate >= @period_start), 0) AS paid_leave_days
+        FROM
+            employee e
+        LEFT JOIN (
+            SELECT
+                a.employeeID,
+                (SUM(TIMESTAMPDIFF(MINUTE, a.timeIn, a.timeOut)) - (COUNT(a.employeeID) * 60)) / 60 AS total_hours_worked,
+                SUM(GREATEST(TIMESTAMPDIFF(MINUTE, s.timeIn, a.timeIn), 0)) AS total_late_minutes,
+                SUM(GREATEST(TIMESTAMPDIFF(MINUTE, a.timeOut, s.timeOut), 0)) AS total_undertime_minutes
+            FROM attendance a
+            JOIN shiftemployee se ON a.employeeID = se.employeeID AND a.date BETWEEN se.startDate AND se.endDate
+            JOIN shift s ON se.shiftID = s.shiftID
+            WHERE a.employeeID = @employee_id
+              AND a.date BETWEEN @period_start AND @period_end
+              AND a.status != 'Absent'
+            GROUP BY a.employeeID
+        ) AS att_summary ON e.employeeID = att_summary.employeeID
+        WHERE
+            e.employeeID = @employee_id
+        GROUP BY
+            e.employeeID, e.hourlyRate;
+        ";
+
                 var conn = dbConn.Instance.Connection;
                 if (conn.State != ConnectionState.Open)
                     conn.Open();
@@ -197,18 +213,15 @@
                             decimal hoursWorked = Convert.ToDecimal(reader["total_hours_worked"]);
                             decimal totalDeductions = Convert.ToDecimal(reader["total_deductions"]);
                             decimal totalBonuses = Convert.ToDecimal(reader["bonus"]);
+                            int paidLeaveDays = Convert.ToInt32(reader["paid_leave_days"]);
 
-                            
                             deductionTypes = reader["detailed_deductions"].ToString();
                             bonusTypes = reader["detailed_bonuses"].ToString();
 
-                           
-                            decimal grossPay = Math.Max(hoursWorked * hourlyRate, 0);
-
-                            
+                            // Same calculation logic as before, but now it will have the correct data
+                            decimal totalHours = hoursWorked + (paidLeaveDays * 8); // Assuming 8 hours per leave day
+                            decimal grossPay = Math.Max(totalHours * hourlyRate, 0);
                             decimal totalPenalty = ((totalLates + totalUndertime) / 60) * hourlyRate;
-
-                            
                             decimal netPay = Math.Max(grossPay - totalPenalty - totalDeductions + totalBonuses, 0);
 
                             textBox1.Text = totalLates.ToString("F0");
@@ -219,15 +232,19 @@
                             textBox6.Text = totalBonuses.ToString("F2");
                             textBox7.Text = netPay.ToString("F2");
 
-                          
                             button1.Visible = netPay > 0;
                         }
                         else
                         {
+                            MessageBox.Show("Could not find employee data.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             ClearTextBoxes();
                         }
                     }
                 }
+            }
+            else
+            {
+                ClearTextBoxes();
             }
         }
         private void ClearTextBoxes()
@@ -436,6 +453,7 @@
             {
             LoadPayrollSummary();
             }
+
             public void LoadPayrollPeriods()
             {
                 string query = "SELECT periodStart, periodEnd FROM payrollperiod ORDER BY periodStart DESC";

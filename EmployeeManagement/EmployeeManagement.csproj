@@ -187,11 +187,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="QrScanner.cs">
+    <Compile Include="Leave.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="QrScanner.Designer.cs">
-      <DependentUpon>QrScanner.cs</DependentUpon>
+    <Compile Include="Leave.Designer.cs">
+      <DependentUpon>Leave.cs</DependentUpon>
     </Compile>
     <Compile Include="UpdateEmployee.cs">
       <SubType>Form</SubType>
@@ -238,8 +238,8 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="QrScanner.resx">
-      <DependentUpon>QrScanner.cs</DependentUpon>
+    <EmbeddedResource Include="Leave.resx">
+      <DependentUpon>Leave.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UpdateEmployee.resx">
       <DependentUpon>UpdateEmployee.cs</DependentUpon>

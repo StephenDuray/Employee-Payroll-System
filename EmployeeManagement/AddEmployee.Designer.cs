@@ -279,7 +279,7 @@
             this.AddButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.AddButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AddButton.Image = global::EmployeeManagement.Properties.Resources.addEmployee;
-            this.AddButton.Location = new System.Drawing.Point(555, 486);
+            this.AddButton.Location = new System.Drawing.Point(573, 479);
             this.AddButton.Name = "AddButton";
             this.AddButton.Size = new System.Drawing.Size(178, 60);
             this.AddButton.TabIndex = 13;
@@ -305,7 +305,7 @@
             this.addImage.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.addImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addImage.Image = global::EmployeeManagement.Properties.Resources.addEmployee;
-            this.addImage.Location = new System.Drawing.Point(555, 380);
+            this.addImage.Location = new System.Drawing.Point(573, 380);
             this.addImage.Name = "addImage";
             this.addImage.Size = new System.Drawing.Size(178, 60);
             this.addImage.TabIndex = 27;

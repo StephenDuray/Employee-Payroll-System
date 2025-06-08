@@ -533,5 +533,11 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
             AttendanceScanner attendanceScanner = new AttendanceScanner();
             attendanceScanner.Show();
         }
+
+        private void LeaveButton_Click(object sender, EventArgs e)
+        {
+            Leave leave = new Leave(); 
+            leave.Show();
+        }
     }
 }

@@ -45,24 +45,6 @@
             this.timelabel = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.DateeLabel = new System.Windows.Forms.Label();
-            this.TimeeLabel = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.mainPanel = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.TotalemployeesQuery = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.terminatedLabelQuery = new System.Windows.Forms.Label();
-            this.terminatedLabel = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.LabelActiveQuery = new System.Windows.Forms.Label();
-            this.LabelActive = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.deductoinButton = new System.Windows.Forms.Button();
             this.bonusButton = new System.Windows.Forms.Button();
             this.ExitButton = new System.Windows.Forms.Button();
@@ -73,21 +55,40 @@
             this.addShiftButton = new System.Windows.Forms.Button();
             this.LogOutButton = new System.Windows.Forms.Button();
             this.attendanceButton = new System.Windows.Forms.Button();
+            this.DateeLabel = new System.Windows.Forms.Label();
+            this.TimeeLabel = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.mainPanel = new System.Windows.Forms.Panel();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.TotalemployeesQuery = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.terminatedLabelQuery = new System.Windows.Forms.Label();
+            this.terminatedLabel = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.LabelActiveQuery = new System.Windows.Forms.Label();
+            this.LabelActive = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.addAttendanceButton = new System.Windows.Forms.Button();
             this.UpdateButton = new System.Windows.Forms.Button();
             this.AddButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.LeaveButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
-            this.mainPanel.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.mainPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -247,6 +248,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.LeaveButton);
             this.panel1.Controls.Add(this.deductoinButton);
             this.panel1.Controls.Add(this.bonusButton);
             this.panel1.Controls.Add(this.ExitButton);
@@ -263,6 +265,153 @@
             this.panel1.Size = new System.Drawing.Size(312, 907);
             this.panel1.TabIndex = 26;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // deductoinButton
+            // 
+            this.deductoinButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.deductoinButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deductoinButton.Image = global::EmployeeManagement.Properties.Resources.deduction1;
+            this.deductoinButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.deductoinButton.Location = new System.Drawing.Point(21, 595);
+            this.deductoinButton.Name = "deductoinButton";
+            this.deductoinButton.Size = new System.Drawing.Size(278, 59);
+            this.deductoinButton.TabIndex = 31;
+            this.deductoinButton.Text = "      Deduction";
+            this.deductoinButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.deductoinButton.UseVisualStyleBackColor = true;
+            this.deductoinButton.Click += new System.EventHandler(this.deductoinButton_Click);
+            // 
+            // bonusButton
+            // 
+            this.bonusButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.bonusButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bonusButton.Image = global::EmployeeManagement.Properties.Resources.bonus;
+            this.bonusButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.bonusButton.Location = new System.Drawing.Point(21, 660);
+            this.bonusButton.Name = "bonusButton";
+            this.bonusButton.Size = new System.Drawing.Size(278, 59);
+            this.bonusButton.TabIndex = 30;
+            this.bonusButton.Text = "      Bonus";
+            this.bonusButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.bonusButton.UseVisualStyleBackColor = true;
+            this.bonusButton.Click += new System.EventHandler(this.bonusButton_Click);
+            // 
+            // ExitButton
+            // 
+            this.ExitButton.BackColor = System.Drawing.Color.White;
+            this.ExitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ExitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ExitButton.Image = global::EmployeeManagement.Properties.Resources.exitButton1;
+            this.ExitButton.Location = new System.Drawing.Point(197, 828);
+            this.ExitButton.Name = "ExitButton";
+            this.ExitButton.Size = new System.Drawing.Size(102, 48);
+            this.ExitButton.TabIndex = 29;
+            this.ExitButton.Text = " Exit";
+            this.ExitButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.ExitButton.UseVisualStyleBackColor = false;
+            this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
+            // 
+            // payrollButton
+            // 
+            this.payrollButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.payrollButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.payrollButton.Image = global::EmployeeManagement.Properties.Resources.icons8_money_transfer_48;
+            this.payrollButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.payrollButton.Location = new System.Drawing.Point(21, 530);
+            this.payrollButton.Name = "payrollButton";
+            this.payrollButton.Size = new System.Drawing.Size(278, 59);
+            this.payrollButton.TabIndex = 15;
+            this.payrollButton.Text = "      Payroll";
+            this.payrollButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.payrollButton.UseVisualStyleBackColor = true;
+            this.payrollButton.Click += new System.EventHandler(this.payrollButton_Click);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pictureBox2.Image = global::EmployeeManagement.Properties.Resources.Logo;
+            this.pictureBox2.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(312, 260);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 14;
+            this.pictureBox2.TabStop = false;
+            // 
+            // DashboardButton
+            // 
+            this.DashboardButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.DashboardButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DashboardButton.Image = global::EmployeeManagement.Properties.Resources.icons8_dashboard_layout_24;
+            this.DashboardButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.DashboardButton.Location = new System.Drawing.Point(20, 266);
+            this.DashboardButton.Name = "DashboardButton";
+            this.DashboardButton.Size = new System.Drawing.Size(278, 59);
+            this.DashboardButton.TabIndex = 0;
+            this.DashboardButton.Text = "         Dashboard   ";
+            this.DashboardButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.DashboardButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.DashboardButton.UseVisualStyleBackColor = true;
+            this.DashboardButton.Click += new System.EventHandler(this.DashboardButton_Click);
+            // 
+            // EmployeeButton
+            // 
+            this.EmployeeButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.EmployeeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EmployeeButton.Image = global::EmployeeManagement.Properties.Resources.employee1;
+            this.EmployeeButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.EmployeeButton.Location = new System.Drawing.Point(21, 335);
+            this.EmployeeButton.Name = "EmployeeButton";
+            this.EmployeeButton.Size = new System.Drawing.Size(278, 59);
+            this.EmployeeButton.TabIndex = 1;
+            this.EmployeeButton.Text = "     Employees";
+            this.EmployeeButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.EmployeeButton.UseVisualStyleBackColor = true;
+            this.EmployeeButton.Click += new System.EventHandler(this.EmployeeButton_Click);
+            // 
+            // addShiftButton
+            // 
+            this.addShiftButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.addShiftButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addShiftButton.Image = global::EmployeeManagement.Properties.Resources.addShift;
+            this.addShiftButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.addShiftButton.Location = new System.Drawing.Point(20, 465);
+            this.addShiftButton.Name = "addShiftButton";
+            this.addShiftButton.Size = new System.Drawing.Size(278, 59);
+            this.addShiftButton.TabIndex = 3;
+            this.addShiftButton.Text = "     Assign Shift";
+            this.addShiftButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.addShiftButton.UseVisualStyleBackColor = true;
+            this.addShiftButton.Click += new System.EventHandler(this.addShiftButton_Click);
+            // 
+            // LogOutButton
+            // 
+            this.LogOutButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.LogOutButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LogOutButton.Image = global::EmployeeManagement.Properties.Resources.icons8_logout_rounded_30;
+            this.LogOutButton.Location = new System.Drawing.Point(21, 828);
+            this.LogOutButton.Name = "LogOutButton";
+            this.LogOutButton.Size = new System.Drawing.Size(119, 48);
+            this.LogOutButton.TabIndex = 5;
+            this.LogOutButton.Text = "Log Out";
+            this.LogOutButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.LogOutButton.UseVisualStyleBackColor = true;
+            this.LogOutButton.Click += new System.EventHandler(this.LogOutButton_Click);
+            // 
+            // attendanceButton
+            // 
+            this.attendanceButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.attendanceButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.attendanceButton.Image = global::EmployeeManagement.Properties.Resources.nda;
+            this.attendanceButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.attendanceButton.Location = new System.Drawing.Point(21, 400);
+            this.attendanceButton.Name = "attendanceButton";
+            this.attendanceButton.Size = new System.Drawing.Size(278, 59);
+            this.attendanceButton.TabIndex = 13;
+            this.attendanceButton.Text = "        Attendance";
+            this.attendanceButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.attendanceButton.UseVisualStyleBackColor = true;
+            this.attendanceButton.Click += new System.EventHandler(this.attendanceButton_Click);
             // 
             // DateeLabel
             // 
@@ -311,6 +460,16 @@
             this.mainPanel.Visible = false;
             this.mainPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.mainPanel_Paint);
             // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Image = global::EmployeeManagement.Properties.Resources.working;
+            this.pictureBox6.Location = new System.Drawing.Point(11, 269);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(881, 264);
+            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox6.TabIndex = 3;
+            this.pictureBox6.TabStop = false;
+            // 
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(200)))), ((int)(((byte)(255)))));
@@ -321,6 +480,16 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(277, 181);
             this.panel4.TabIndex = 2;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::EmployeeManagement.Properties.Resources.activeje;
+            this.pictureBox3.Location = new System.Drawing.Point(120, 5);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(142, 129);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 2;
+            this.pictureBox3.TabStop = false;
             // 
             // TotalemployeesQuery
             // 
@@ -353,6 +522,16 @@
             this.panel3.Size = new System.Drawing.Size(277, 181);
             this.panel3.TabIndex = 1;
             // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::EmployeeManagement.Properties.Resources.active;
+            this.pictureBox4.Location = new System.Drawing.Point(99, 7);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(175, 125);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox4.TabIndex = 4;
+            this.pictureBox4.TabStop = false;
+            // 
             // terminatedLabelQuery
             // 
             this.terminatedLabelQuery.AutoSize = true;
@@ -384,6 +563,16 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(277, 181);
             this.panel2.TabIndex = 0;
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = global::EmployeeManagement.Properties.Resources.emops;
+            this.pictureBox5.Location = new System.Drawing.Point(132, 7);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(133, 127);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox5.TabIndex = 2;
+            this.pictureBox5.TabStop = false;
             // 
             // LabelActiveQuery
             // 
@@ -420,193 +609,6 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // pictureBox6
-            // 
-            this.pictureBox6.Image = global::EmployeeManagement.Properties.Resources.working;
-            this.pictureBox6.Location = new System.Drawing.Point(11, 269);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(881, 264);
-            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox6.TabIndex = 3;
-            this.pictureBox6.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::EmployeeManagement.Properties.Resources.activeje;
-            this.pictureBox3.Location = new System.Drawing.Point(120, 5);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(142, 129);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 2;
-            this.pictureBox3.TabStop = false;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Image = global::EmployeeManagement.Properties.Resources.active;
-            this.pictureBox4.Location = new System.Drawing.Point(99, 7);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(175, 125);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox4.TabIndex = 4;
-            this.pictureBox4.TabStop = false;
-            // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Image = global::EmployeeManagement.Properties.Resources.emops;
-            this.pictureBox5.Location = new System.Drawing.Point(132, 7);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(133, 127);
-            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox5.TabIndex = 2;
-            this.pictureBox5.TabStop = false;
-            // 
-            // deductoinButton
-            // 
-            this.deductoinButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.deductoinButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deductoinButton.Image = global::EmployeeManagement.Properties.Resources.deduction1;
-            this.deductoinButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.deductoinButton.Location = new System.Drawing.Point(20, 655);
-            this.deductoinButton.Name = "deductoinButton";
-            this.deductoinButton.Size = new System.Drawing.Size(278, 59);
-            this.deductoinButton.TabIndex = 31;
-            this.deductoinButton.Text = "      Deduction";
-            this.deductoinButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.deductoinButton.UseVisualStyleBackColor = true;
-            this.deductoinButton.Click += new System.EventHandler(this.deductoinButton_Click);
-            // 
-            // bonusButton
-            // 
-            this.bonusButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.bonusButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bonusButton.Image = global::EmployeeManagement.Properties.Resources.bonus;
-            this.bonusButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.bonusButton.Location = new System.Drawing.Point(21, 727);
-            this.bonusButton.Name = "bonusButton";
-            this.bonusButton.Size = new System.Drawing.Size(278, 59);
-            this.bonusButton.TabIndex = 30;
-            this.bonusButton.Text = "      Bonus";
-            this.bonusButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.bonusButton.UseVisualStyleBackColor = true;
-            this.bonusButton.Click += new System.EventHandler(this.bonusButton_Click);
-            // 
-            // ExitButton
-            // 
-            this.ExitButton.BackColor = System.Drawing.Color.White;
-            this.ExitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ExitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ExitButton.Image = global::EmployeeManagement.Properties.Resources.exitButton1;
-            this.ExitButton.Location = new System.Drawing.Point(197, 828);
-            this.ExitButton.Name = "ExitButton";
-            this.ExitButton.Size = new System.Drawing.Size(102, 48);
-            this.ExitButton.TabIndex = 29;
-            this.ExitButton.Text = " Exit";
-            this.ExitButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.ExitButton.UseVisualStyleBackColor = false;
-            this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
-            // 
-            // payrollButton
-            // 
-            this.payrollButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.payrollButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.payrollButton.Image = global::EmployeeManagement.Properties.Resources.icons8_money_transfer_48;
-            this.payrollButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.payrollButton.Location = new System.Drawing.Point(21, 586);
-            this.payrollButton.Name = "payrollButton";
-            this.payrollButton.Size = new System.Drawing.Size(278, 59);
-            this.payrollButton.TabIndex = 15;
-            this.payrollButton.Text = "      Payroll";
-            this.payrollButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.payrollButton.UseVisualStyleBackColor = true;
-            this.payrollButton.Click += new System.EventHandler(this.payrollButton_Click);
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox2.Image = global::EmployeeManagement.Properties.Resources.Logo;
-            this.pictureBox2.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(312, 260);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 14;
-            this.pictureBox2.TabStop = false;
-            // 
-            // DashboardButton
-            // 
-            this.DashboardButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.DashboardButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DashboardButton.Image = global::EmployeeManagement.Properties.Resources.icons8_dashboard_layout_24;
-            this.DashboardButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.DashboardButton.Location = new System.Drawing.Point(21, 293);
-            this.DashboardButton.Name = "DashboardButton";
-            this.DashboardButton.Size = new System.Drawing.Size(278, 59);
-            this.DashboardButton.TabIndex = 0;
-            this.DashboardButton.Text = "         Dashboard   ";
-            this.DashboardButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.DashboardButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.DashboardButton.UseVisualStyleBackColor = true;
-            this.DashboardButton.Click += new System.EventHandler(this.DashboardButton_Click);
-            // 
-            // EmployeeButton
-            // 
-            this.EmployeeButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.EmployeeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EmployeeButton.Image = global::EmployeeManagement.Properties.Resources.employee1;
-            this.EmployeeButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.EmployeeButton.Location = new System.Drawing.Point(21, 364);
-            this.EmployeeButton.Name = "EmployeeButton";
-            this.EmployeeButton.Size = new System.Drawing.Size(278, 59);
-            this.EmployeeButton.TabIndex = 1;
-            this.EmployeeButton.Text = "     Employees";
-            this.EmployeeButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.EmployeeButton.UseVisualStyleBackColor = true;
-            this.EmployeeButton.Click += new System.EventHandler(this.EmployeeButton_Click);
-            // 
-            // addShiftButton
-            // 
-            this.addShiftButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.addShiftButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addShiftButton.Image = global::EmployeeManagement.Properties.Resources.addShift;
-            this.addShiftButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.addShiftButton.Location = new System.Drawing.Point(21, 514);
-            this.addShiftButton.Name = "addShiftButton";
-            this.addShiftButton.Size = new System.Drawing.Size(278, 59);
-            this.addShiftButton.TabIndex = 3;
-            this.addShiftButton.Text = "     Assign Shift";
-            this.addShiftButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.addShiftButton.UseVisualStyleBackColor = true;
-            this.addShiftButton.Click += new System.EventHandler(this.addShiftButton_Click);
-            // 
-            // LogOutButton
-            // 
-            this.LogOutButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.LogOutButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LogOutButton.Image = global::EmployeeManagement.Properties.Resources.icons8_logout_rounded_30;
-            this.LogOutButton.Location = new System.Drawing.Point(21, 828);
-            this.LogOutButton.Name = "LogOutButton";
-            this.LogOutButton.Size = new System.Drawing.Size(119, 48);
-            this.LogOutButton.TabIndex = 5;
-            this.LogOutButton.Text = "Log Out";
-            this.LogOutButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.LogOutButton.UseVisualStyleBackColor = true;
-            this.LogOutButton.Click += new System.EventHandler(this.LogOutButton_Click);
-            // 
-            // attendanceButton
-            // 
-            this.attendanceButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.attendanceButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.attendanceButton.Image = global::EmployeeManagement.Properties.Resources.nda;
-            this.attendanceButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.attendanceButton.Location = new System.Drawing.Point(21, 441);
-            this.attendanceButton.Name = "attendanceButton";
-            this.attendanceButton.Size = new System.Drawing.Size(278, 59);
-            this.attendanceButton.TabIndex = 13;
-            this.attendanceButton.Text = "        Attendance";
-            this.attendanceButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.attendanceButton.UseVisualStyleBackColor = true;
-            this.attendanceButton.Click += new System.EventHandler(this.attendanceButton_Click);
             // 
             // addAttendanceButton
             // 
@@ -667,6 +669,21 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
+            // LeaveButton
+            // 
+            this.LeaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.LeaveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LeaveButton.Image = global::EmployeeManagement.Properties.Resources.bonus;
+            this.LeaveButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.LeaveButton.Location = new System.Drawing.Point(21, 725);
+            this.LeaveButton.Name = "LeaveButton";
+            this.LeaveButton.Size = new System.Drawing.Size(278, 59);
+            this.LeaveButton.TabIndex = 32;
+            this.LeaveButton.Text = "      Leave";
+            this.LeaveButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.LeaveButton.UseVisualStyleBackColor = true;
+            this.LeaveButton.Click += new System.EventHandler(this.LeaveButton_Click);
+            // 
             // Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -704,18 +721,18 @@
             this.Load += new System.EventHandler(this.Dashboard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.mainPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -772,5 +789,6 @@
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button LeaveButton;
     }
 }

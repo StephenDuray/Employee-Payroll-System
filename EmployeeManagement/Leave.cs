@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,91 +12,114 @@ using ZXing;
 
 namespace EmployeeManagement
 {
-    public partial class QrScanner: Form
+    public partial class Leave: Form
     {
-        public QrScanner()
+        public Leave()
         {
             InitializeComponent();
+            LoadEmployeeNames();
         }
 
-        private void qrCodePictureBox_Click(object sender, EventArgs e)
+        private void EmployeeBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-        }
-        private void generateButton_Click(object sender, EventArgs e)
-        {
-            // Open a file dialog to select an image file
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            if (EmployeeBox.SelectedIndex > 0)
             {
-                openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    // Load the selected image into the PictureBox
-                    Bitmap bitmap = new Bitmap(openFileDialog.FileName);
-                    qrCodePictureBox.Image = bitmap;
+                string selectedEmployeeName = EmployeeBox.SelectedItem.ToString();
+            }
+        }
+        private List<KeyValuePair<int, string>> GetEmployeeNamesWithIDs()
+        {
+            List<KeyValuePair<int, string>> employees = new List<KeyValuePair<int, string>>();
 
-                    // Scan the QR code from the image
-                    string qrContent = ScanQRCode(bitmap);
-                    if (!string.IsNullOrEmpty(qrContent))
+            string query = "SELECT employeeID, CONCAT(Fname, ' ', Lname) AS FullName FROM employee";
+            using (MySqlCommand cmd = new MySqlCommand(query, dbConn.Instance.Connection))
+            {
+                if (dbConn.Instance.Connection.State != ConnectionState.Open)
+                    dbConn.Instance.Connection.Open();
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
                     {
-                        // Process the QR code content
-                        ProcessQRCode(qrContent);
-                    }
-                    else
-                    {
-                        label1.Text = "No QR code detected.";
+                        int id = reader.GetInt32("employeeID");
+                        string name = reader.GetString("FullName");
+                        employees.Add(new KeyValuePair<int, string>(id, name));
                     }
                 }
             }
+
+            return employees;
+        }
+        private void LoadEmployeeNames()
+        {
+            try
+            {
+                var employees = GetEmployeeNamesWithIDs();
+
+                EmployeeBox.Items.Clear();
+
+                EmployeeBox.Items.Add(new KeyValuePair<int, string>(0, "Select Employee"));
+
+                foreach (var employee in employees)
+                {
+                    EmployeeBox.Items.Add(employee);
+                }
+
+                EmployeeBox.DisplayMember = "Value";
+                EmployeeBox.ValueMember = "Key";
+                EmployeeBox.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading employee names: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
-        private void ProcessQRCode(string qrContent)
+        private void AddButton_Click(object sender, EventArgs e)
         {
-            if (!int.TryParse(qrContent.Trim(), out int employeeId))
+            if (EmployeeBox.SelectedIndex > 0)
             {
-                label1.Text = "Invalid QR Code content.";
-                return;
-            }
+                int employeeId = ((KeyValuePair<int, string>)EmployeeBox.SelectedItem).Key;
+                DateTime startDate = dateTimePicker1.Value;
+                DateTime endDate = dateTimePicker2.Value;
 
-            DateTime currentDate = DateTime.Now.Date;
+                // Validate date range
+                if (startDate > endDate)
+                {
+                    MessageBox.Show("Start date cannot be after end date.", "Invalid Dates", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-            if (!dbConn.HasShiftOnDate(employeeId, currentDate))
-            {
-                label1.Text = "No shift assigned for today.";
-                return;
-            }
+                bool isLeaveWithPay = isLeavewithPay.Checked;
 
-            // Check if there's an existing attendance record for today
-            var (timeIn, timeOut) = dbConn.GetAttendanceRecord(employeeId, currentDate);
+                try
+                {
+                    bool success = dbConn.AddLeaveRecord(employeeId, startDate, endDate, isLeaveWithPay);
 
-            string employeeName = dbConn.GetEmployeeNameByID(employeeId);
-
-            if (timeIn == null)
-            {
-                // No record exists, so this is a time in
-                TimeSpan newTimeIn = DateTime.Now.TimeOfDay;
-                dbConn.AddAttendanceWithTimeIn(employeeId, currentDate, newTimeIn);
-                label1.Text = $"{employeeName} has timed in at {newTimeIn}.";
-            }
-            else if (timeOut == null)
-            {
-                // Record exists but no time out, so this is a time out
-                TimeSpan newTimeOut = DateTime.Now.TimeOfDay;
-                dbConn.UpdateAttendanceWithTimeOut(employeeId, currentDate, newTimeOut);
-                label1.Text = $"{employeeName} has timed out at {newTimeOut}.";
+                    if (success)
+                    {
+                        MessageBox.Show("Leave processed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to process leave.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
-                // Both time in and time out are already recorded
-                label1.Text = "Attendance for today is already complete.";
+                MessageBox.Show("Please select a valid employee.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
-        private string ScanQRCode(Bitmap bitmap)
+        private void BackButton_Click(object sender, EventArgs e)
         {
-            BarcodeReader reader = new BarcodeReader();
-            var result = reader.Decode(bitmap);
-            return result?.Text;
+            this.Close();
         }
     }
 }
